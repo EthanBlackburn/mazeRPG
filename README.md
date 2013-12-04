@@ -2,7 +2,7 @@ mazeRPG
 =======
 mazeRPG is a simple maze game with randomly generated mazes and levels.
 
-Levels:
+Levels: \n
 Each level contains a maze with an objective (i.e. end location) and enemies with simple AI.
 
 Maze:
