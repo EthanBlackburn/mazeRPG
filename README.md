@@ -2,8 +2,8 @@ mazeRPG
 =======
 mazeRPG is a simple maze game with randomly generated mazes and levels.
 
-Levels: \n
-Each level contains a maze with an objective (i.e. end location) and enemies with simple AI.
+Levels: 
+  Each level contains a maze with an objective (i.e. end location) and enemies with simple AI.
 
 Maze:
 A "maze" (as of now called a Grid) consists of Walls and a Path. Both of these are represented by a set of Virtices which symbollically make up a graph. Mazes are constructed randomly via a randomized DFS method.
