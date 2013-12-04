@@ -1,7 +1,8 @@
 import java.util.Random;
-import java.lang.Math;
+//import java.lang.Math;
 public class Grid {
 	
+	//grid will have walls and a path
 	private Vertex walls[][];
 	private Vertex path[][];
 
