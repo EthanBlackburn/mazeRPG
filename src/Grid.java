@@ -83,7 +83,7 @@ public class Grid {
 				int numY;
 				
 				//set numX/Y to a random bit value, but only if both 1 and 0 are still
-				//possible enumerations for randomizing an adjacent cell
+				//possible enumerations for numX and numY respectively
 				if(!triedOne | !triedTwo){
 					if(!triedThree | !triedFour){
 						numX = rand.nextInt(2);
