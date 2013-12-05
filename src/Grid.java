@@ -50,7 +50,7 @@ public class Grid {
 		makeMaze(1,1);
 	}
 	
-	//function to create a maze from the walls and path vertices using a randomized depth first search method
+	//function to create a maze from the walls and path vertices using a randomized DFS method
 	public boolean makeMaze(int x, int y) {
 		//if out of bounds return false
 		if(x < 0 | x >= cellsWidth | y<0 | y>=cellsHeight) {
@@ -65,16 +65,51 @@ public class Grid {
 			//create random number generator
 			Random rand = new Random();
 			path[x][y].setInPath();
-			int a = x;
-			int b = y;
+			
+			//instantiate a and b
+			int a = 5;// = x;
+			int b = 5;// = y;
+			
+
+			//four possible random attempts from any path vertex. it is to our benefit
+			//to insure that we don't try any possibility more than once.
+			//each boolean below keeps track of these attempts.
 			boolean triedOne = false;
 			boolean triedTwo = false;
 			boolean triedThree = false;
 			boolean triedFour = false;
 			while(!triedOne | !triedTwo | !triedThree | !triedFour){
-				int numX = rand.nextInt(2);
-				int numY = rand.nextInt(2);
+				int numX;
+				int numY;
 				
+				//set numX/Y to a random bit value, but only if both 1 and 0 are still
+				//possible enumerations for randomizing an adjacent cell
+				if(!triedOne | !triedTwo){
+					if(!triedThree | !triedFour){
+						numX = rand.nextInt(2);
+					}
+					else {
+						numX = 0;
+					}
+				}
+				else{
+					numX = 1;
+				}
+				
+				if(!triedOne | !triedThree){
+					if(!triedTwo | !triedFour){
+						numY = rand.nextInt(2);
+					}
+					else {
+						numY = 0;
+					}
+				}
+				else{
+					numY = 1;
+				}
+				
+				//(numX,numY) == (0,0), (0,1), (1,0), (1,1) represent the four possible 
+				//adjacent cells (path vertices) to (x,y).
 				if(numX == 0) {
 					if(numY == 0 & !triedOne){
 						a = x;
@@ -100,26 +135,39 @@ public class Grid {
 					}
 				}
 				if(makeMaze(a,b)){
-					path[x][y].addConnection(path[a][b]);
-					if(y == b){
-						int m = x;
-						if(a>x){
-							m = a;
-						}
-						walls[m][y].removeConnection(walls[m][y+1]);
-					}
-					else if( x == a){
-						int m = y;
-						if(b>y){
-							m = b;
-						}
-						walls[x][m].removeConnection(walls[x+1][m]);
-					}
+					removeMazeWall(x,y,a,b);
 				}
 			}
 			return true;
 		}
 		
+	}
+	
+	//removeWall will remove the wall between the path vertices at location (x,y) and (a,b)
+	//and connect (x,y) and (a,b) in the path.
+	private void removeMazeWall(int x, int y, int a, int b) {
+		//return if !(abs(x-a)==1 xor abs(y-b)==1) to insure correct path connections
+		if(!(((x-a == 1 | x-a == -1) & y-b==0) | ((y-b == 1 | y-b == -1) & x-a==0))){
+			return;
+		}
+		
+		//add the desired path connection
+		path[x][y].addConnection(path[a][b]);
+		//if y==b then the path vertices in question are horizontal to each other
+		if(y == b){
+			int m = x;
+			if(a>x){
+				m = a;
+			}
+			walls[m][y].removeConnection(walls[m][y+1]);
+		}
+		else if(x==a){
+			int m = y;
+			if(b>y){
+				m = b;
+			}
+			walls[x][m].removeConnection(walls[x+1][m]);
+		}
 	}
 	
 	//return width
