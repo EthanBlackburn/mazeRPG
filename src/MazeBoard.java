@@ -22,7 +22,7 @@ public class MazeBoard extends JPanel{
 		grid = new Grid(w,h);
 		
 		this.walls = new ArrayList();
-		walls.add(new Wall(new Vertex(10,10),new Vertex(10,20)));
+		//walls.add(new Wall(new Vertex(10,10),new Vertex(10,20)));
 		repaint();
 	}
 	

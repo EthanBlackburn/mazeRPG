@@ -1,7 +1,9 @@
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -48,23 +50,44 @@ public class GameIcon implements Icon{
 	public void paintIcon(Component arg0, Graphics arg1, int arg2, int arg3) {
 		Graphics2D g2 = (Graphics2D) arg1;
 		int quant = 20;
-		for(int i = 0; i< grid.getWidth()-1; i++){
-			for(int j = 0; j< grid.getHeight()-1; j++){
-				for(int k = 0; k< grid.getVertex(i, j).connections.size(); k++) {
-					Line2D.Double l1 = grid.getVertex(i, j).toLine((grid.getVertex(i,j)).getConnection(k), getIconWidth()/x);
-					g2.setColor(Color.RED);
-					g2.draw(l1);
-				}
-			}
-		}
-		for(int i = 0; i< grid.getWidth(); i++){
-			for(int j = 0; j< grid.getHeight(); j++){
-				for(int k = 0; k< grid.getVertex2(i, j).connections.size(); k++) {
-					Line2D.Double l1 = grid.getVertex2(i, j).toLine((grid.getVertex2(i,j)).getConnection(k), getIconWidth()/x);
-					g2.setColor(Color.BLACK);
-					g2.draw(l1);
-				}
-			}
+		
+		BasicStroke stroke = new BasicStroke(2);
+		g2.setStroke(stroke);
+		
+		//create a GraphIcon for the grid.path and paint it RED
+		GraphIcon path = new GraphIcon(grid.path);
+		g2.setColor(Color.RED);
+		path.paintIcon(arg0, g2, arg2, arg3);
+				
+		
+		//create a GraphIcon for the grid.walls and paint it black
+		GraphIcon w = new GraphIcon(grid.walls);
+		g2.setColor(Color.BLACK);
+		w.paintIcon(arg0, g2, arg2, arg3);	
+		
+		//preliminary test of longest path drawing by drawing the two endpoints with blue circles
+		grid.findFurthestVertex(grid.path.getVertex(0,0),0);
+		Vertex start = grid.farthestVert;
+		grid.resetMarkers();
+		grid.findFurthestVertex(start,0);
+		Vertex end = new Vertex(grid.farthestVert);
+		
+		Ellipse2D.Double startCircle = new Ellipse2D.Double(10*start.getX() - 5,10*start.getY()-5, 10,10);
+		Ellipse2D.Double endCircle = new Ellipse2D.Double(10*end.getX()-5, 10*end.getY()-5, 10, 10);
+		g2.setColor(Color.BLUE);
+		g2.fill(startCircle);
+		g2.setColor(Color.RED);
+		g2.fill(endCircle);
+		
+		grid.resetMarkers();
+		grid.makeLongestPath(start, new Vertex(start), end);
+		grid.resetMarkers();
+		
+		//draw the longest path in color BLUE
+		g2.setColor(Color.BLUE);
+		for(int i = 0 ; i< grid.longestPath.size()-1; i++) {
+			Line2D.Double l1 = grid.longestPath.get(i).toLine(grid.longestPath.get(i+1), 10);
+			g2.draw(l1);
 		}
 	}
 
