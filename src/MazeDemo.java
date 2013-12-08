@@ -18,6 +18,7 @@ public class MazeDemo {
 	      
 	    final MazeBoard scene = new MazeBoard(0,0);
 	    final Grid grid = new Grid(30,20);
+		
 	    final GameIcon wall = new GameIcon(grid);
 	    final JLabel comp = new JLabel(wall);
 	    frame.setLayout(new FlowLayout());

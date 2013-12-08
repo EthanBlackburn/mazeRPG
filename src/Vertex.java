@@ -27,6 +27,12 @@ public class Vertex {
 		isInPath = false;
 	}
 	
+	public Vertex(Vertex vert) {
+		loc = new Location(vert.loc);
+		connections = vert.connections;
+		isInPath = false;
+	}
+	
 	//set the vertex location
 	public void setVertex(int x, int y) {
 		loc.setLocation(x,  y);
@@ -41,6 +47,12 @@ public class Vertex {
 	public int getY() {
 		return (int)loc.getY();
 	}
+	
+	public void setNotInPath() {
+		isInPath = false;
+	}
+	
+	
 	
 	public void setInPath() {
 		isInPath = true;
@@ -89,7 +101,12 @@ public class Vertex {
 	
 	//get the connected vertex at a certain index
 	public Vertex getConnection(int i) {
-		return connections.get(i);
+		if(connections.size() > 0){
+			return connections.get(i);
+		}
+		else {
+			return null;
+		}
 	}
 	
 	//create a new Point2D.Double out of a vertex
