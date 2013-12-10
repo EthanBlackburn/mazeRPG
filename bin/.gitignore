@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /GameIcon.class
 /Graph.class
 /GraphIcon.class
@@ -27,3 +28,7 @@
 /MazeDemo$moveRight.class
 /MazeDemo$moveUp.class
 /MazeBoard$MyKeyListener.class
+=======
+/MazeBoard1.class
+/Person.class
+>>>>>>> 6bc7f5dd23922a6cc8fd4dccb8b004d9a16c5ee0

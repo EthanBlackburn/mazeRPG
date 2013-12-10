@@ -3,9 +3,6 @@ import java.math.*;
 
 public class Path extends Graph{
 	
-	//there is one Path in the game and it is a set of Vertices
-	private Vertex path[][];
-	
 	public Path(int w, int h) {
 		super(w,h);
 		for(int i = 0; i<w; i++) {
@@ -13,5 +10,22 @@ public class Path extends Graph{
 				graph[i][j] = new Vertex(2*i +1,2*j+1);
 			}
 		}
+	}
+	
+	
+	//forward and backward pretty much arbitrarily chooses which is the forward and backward vertex.
+	//For the sake of use the two functions only need to distinguish between any two connected vertices
+	public Vertex forward(Vertex vert) {
+		//some of the vertices only have one connection, in which case we don't distinguish between forward or backward
+		if((vert.connections).size() > 1 ){
+			return vert.connections.get(2);
+		}
+		else {
+			return vert.connections.get(1);
+		}
+	}
+	
+	public Vertex backward(Vertex vert) {
+		return vert.connections.get(1);
 	}
 }

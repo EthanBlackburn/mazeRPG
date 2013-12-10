@@ -48,6 +48,11 @@ public class Vertex {
 		return (int)loc.getY();
 	}
 	
+	//returns the location of the vertex
+	public Location getLocation() {
+		return loc;
+	}
+	
 	public void setNotInPath() {
 		isInPath = false;
 	}
@@ -110,12 +115,12 @@ public class Vertex {
 	}
 	
 	//create a new Point2D.Double out of a vertex
-	public Point2D.Double toPoint(int modif) {
-		return new Point2D.Double(modif*getX(), modif*getY());
+	public Point2D.Double toPoint(int modif, int x, int y) {
+		return new Point2D.Double(modif*getX()+x, modif*getY()+y);
 	}
 	
 	//create a new Line2D.Double out of two virtices
-	public Line2D.Double toLine(Vertex vert, int modif) {
-		return new Line2D.Double(toPoint(modif), vert.toPoint(modif));
+	public Line2D.Double toLine(Vertex vert, int modif, int x, int y) {
+		return new Line2D.Double(toPoint(modif, x, y), vert.toPoint(modif,x,y));
 	}
 }
