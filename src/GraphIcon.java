@@ -28,17 +28,15 @@ public class GraphIcon implements Icon{
 	}
 
 	@Override
-	public void paintIcon(Component arg0, Graphics arg1, int arg2, int arg3) {
-		System.out.println("a");
+	public void paintIcon(Component arg0, Graphics arg1, int x, int y) {
 		Graphics2D g2 = (Graphics2D) arg1;
-		System.out.println("x");
 		for(int i = 0; i< getIconWidth(); i++){
 			System.out.println("c");
 			for(int j = 0; j< getIconHeight(); j++){
 				System.out.println("d");
 				for(int k = 0; k< graph.getVertex(i, j).connections.size(); k++) {
 					System.out.println("b");
-					Line2D.Double l1 = graph.getVertex(i, j).toLine((graph.getVertex(i,j)).getConnection(k), 10);
+					Line2D.Double l1 = graph.getVertex(i, j).toLine((graph.getVertex(i,j)).getConnection(k), 10, x, y);
 					g2.draw(l1);
 				}
 			}
