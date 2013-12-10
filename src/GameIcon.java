@@ -57,11 +57,13 @@ public class GameIcon implements Icon{
 		path.paintIcon(arg0, g2, dx, dy);
 				
 		
+		BasicStroke stroke2 = new BasicStroke(10);
 		//create a GraphIcon for the grid.walls and paint it black
+		g2.setStroke(stroke2);
 		GraphIcon w = new GraphIcon(grid.walls);
 		g2.setColor(Color.BLACK);
 		w.paintIcon(arg0, g2, dx, dy);	
-		
+		g2.setStroke(stroke);
 		//preliminary test of longest path drawing by drawing the two endpoints with blue circles
 		grid.findFurthestVertex(grid.path.getVertex(0,0),0);
 		Vertex start = grid.farthestVert;

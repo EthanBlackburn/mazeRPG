@@ -4,8 +4,8 @@ import java.util.ArrayList;
 public abstract class Person {
 	
 	//a person will always have a location
-	private Location loc;
-	private Vertex vert;
+	protected Location loc;
+	protected Vertex vert;
 	private Path path;
 	protected int maxHealth;
 	private int health;
