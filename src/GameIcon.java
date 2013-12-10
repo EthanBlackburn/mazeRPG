@@ -13,7 +13,6 @@ import javax.swing.Icon;
 
 public class GameIcon implements Icon{
 
-	private ArrayList<Wall> walls;
 	private Grid grid;
 	private Player player;
 	private int x;
@@ -27,11 +26,6 @@ public class GameIcon implements Icon{
 		width = 20*grid.getWidth();
 		x = grid.getWidth()*2;
 		y = grid.getHeight()*2;
-	}
-	
-	public void AddWall(Wall w) {
-		Wall wall = w;
-		walls.add(wall);
 	}
 	
 	@Override

@@ -48,6 +48,11 @@ public class Vertex {
 		return (int)loc.getY();
 	}
 	
+	//returns the location of the vertex
+	public Location getLocation() {
+		return loc;
+	}
+	
 	public void setNotInPath() {
 		isInPath = false;
 	}

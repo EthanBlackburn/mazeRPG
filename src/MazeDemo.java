@@ -13,10 +13,7 @@ public class MazeDemo {
 	public static void main(String[] args) {
 		
 		final JFrame frame = new JFrame();
-	      
-	      
-	      
-	    final MazeBoard scene = new MazeBoard(0,0);
+	     
 	    final Grid grid = new Grid(30,20);
 		
 	    final GameIcon wall = new GameIcon(grid);

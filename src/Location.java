@@ -1,3 +1,5 @@
+import java.math.*;
+import java.lang.Math.*;
 
 public class Location {
 	//coordinate location
@@ -38,5 +40,9 @@ public class Location {
 	protected void increment(double dx, double dy) {
 		x += dx;
 		y += dy;
+	}
+	
+	public double dist(Location loc1) {
+		return Math.sqrt(Math.pow((loc1.getX() - this.getX()),2) + Math.pow((loc1.getY() - this.getY()),2));
 	}
 }
