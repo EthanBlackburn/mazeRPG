@@ -1,8 +1,17 @@
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 public class MazeBoard extends JPanel{
 	
@@ -14,15 +23,18 @@ public class MazeBoard extends JPanel{
 	private Path path;
 	private ArrayList<Wall> walls;
 	
+	
 	public MazeBoard(int w, int h) {
 		super();
-		
+	
+		KeyListener listener = new MyKeyListener();
+		addKeyListener(listener);
+		setFocusable(true);
 		setLayout(new GridLayout());
 		
 		grid = new Grid(w,h);
-		
+		//person1 = new Player()
 		this.walls = new ArrayList();
-		//walls.add(new Wall(new Vertex(10,10),new Vertex(10,20)));
 		repaint();
 	}
 	
@@ -34,4 +46,39 @@ public class MazeBoard extends JPanel{
 		Wall wall = w;
 		walls.add(wall);
 	}
+	
+	public Grid getGrid(){
+		return grid;
+	}
+	
+	
+	public class MyKeyListener implements KeyListener {
+		@Override
+		public void keyTyped(KeyEvent e) {
+		}
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			switch(e.getKeyCode()){
+			case KeyEvent.VK_DOWN:person1.move(0, -1);
+			break;
+			case KeyEvent.VK_UP:person1.move(0, 1);
+			break;
+			case KeyEvent.VK_LEFT:person1.move(-1, 0);
+			break;
+			case KeyEvent.VK_RIGHT:person1.move(1, 0);
+			break;
+			}
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			
+		}
+	}
+	
+	
+	
 }
+
+

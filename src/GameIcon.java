@@ -3,12 +3,14 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 
 public class GameIcon implements Icon{
@@ -20,6 +22,8 @@ public class GameIcon implements Icon{
 	private int y;
 	private int height;
 	private int width;
+	private Vertex start;
+	private Vertex end;
 	
 	public GameIcon(Grid g){
 		grid = g;
@@ -45,6 +49,7 @@ public class GameIcon implements Icon{
 		// TODO Auto-generated method stub
 		return width;
 	}
+	
 
 	@Override
 	public void paintIcon(Component arg0, Graphics arg1, int arg2, int arg3) {
@@ -67,17 +72,19 @@ public class GameIcon implements Icon{
 		
 		//preliminary test of longest path drawing by drawing the two endpoints with blue circles
 		grid.findFurthestVertex(grid.path.getVertex(0,0),0);
-		Vertex start = grid.farthestVert;
+		start = grid.farthestVert;
+		
 		grid.resetMarkers();
 		grid.findFurthestVertex(start,0);
-		Vertex end = new Vertex(grid.farthestVert);
-		
-		Ellipse2D.Double startCircle = new Ellipse2D.Double(10*start.getX() - 5,10*start.getY()-5, 10,10);
-		Ellipse2D.Double endCircle = new Ellipse2D.Double(10*end.getX()-5, 10*end.getY()-5, 10, 10);
-		g2.setColor(Color.BLUE);
-		g2.fill(startCircle);
-		g2.setColor(Color.RED);
-		g2.fill(endCircle);
+		end = new Vertex(grid.farthestVert);
+		Image img=new ImageIcon("resources/bulbasaur.png").getImage();
+		g2.drawImage(img,end.getX(),end.getY(),null);
+		//.Double startCircle = new Ellipse2D.Double(10*start.getX() - 5,10*start.getY()-5, 10,10);
+		//Ellipse2D.Double endCircle = new Ellipse2D.Double(10*end.getX()-5, 10*end.getY()-5, 10, 10);
+		//g2.setColor(Color.BLUE);
+		//g2.fill(startCircle);
+		//g2.setColor(Color.RED);
+		//g2.fill(endCircle);
 		
 		grid.resetMarkers();
 		grid.makeLongestPath(start, new Vertex(start), end);
