@@ -17,7 +17,6 @@ public class MazeDemo {
 	public static void main(String[] args) {
 		
 		final JFrame frame = new JFrame();
-<<<<<<< HEAD
 	      
 	      
 	  
@@ -25,12 +24,6 @@ public class MazeDemo {
 		scene = new MazeBoard(30,20);
 	    //final Grid grid = new Grid(30,20);
 	    final GameIcon wall = new GameIcon(scene.getGrid());
-=======
-	     
-	    final Grid grid = new Grid(30,20);
-		
-	    final GameIcon wall = new GameIcon(grid);
->>>>>>> 6bc7f5dd23922a6cc8fd4dccb8b004d9a16c5ee0
 	    final JLabel comp = new JLabel(wall);
 	    frame.setLayout(new FlowLayout());
 	    frame.add (comp);

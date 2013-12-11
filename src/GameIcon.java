@@ -7,10 +7,15 @@ import java.awt.Image;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 
 public class GameIcon implements Icon{
@@ -23,13 +28,20 @@ public class GameIcon implements Icon{
 	private int width;
 	private Vertex start;
 	private Vertex end;
+	private BufferedImage background;
 	
 	public GameIcon(Grid g){
 		grid = g;
-		height = 21*grid.getHeight();
-		width = 21*grid.getWidth();
+		height = 42*grid.getHeight();
+		width = 42*grid.getWidth();
 		x = grid.getWidth()*2;
 		y = grid.getHeight()*2;
+		if(height > 41*17){
+			height = 41*17;
+		}
+		if(width > 61*17){
+			width = 61*17;
+		}
 	}
 	
 	@Override
@@ -48,7 +60,6 @@ public class GameIcon implements Icon{
 	@Override
 	public void paintIcon(Component arg0, Graphics arg1, int arg2, int arg3) {
 		Graphics2D g2 = (Graphics2D) arg1;
-		int quant = 20;
 		
 		BasicStroke stroke = new BasicStroke(2);
 		g2.setStroke(stroke);
@@ -56,54 +67,35 @@ public class GameIcon implements Icon{
 		int dx = 5;
 		int dy = 5;
 		
-		//create a GraphIcon for the grid.path and paint it RED
-		GraphIcon path = new GraphIcon(grid.path);
-		g2.setColor(Color.RED);
-		path.paintIcon(arg0, g2, dx, dy);
-				
+		java.net.URL url = getClass().getResource("/resources/environment/ground.png");
+		try {                
+	         background = ImageIO.read(url);
+	    } catch (IOException ex) {
+	           System.out.println("couldnt ground image");
+	    }
+		for(int i = 0; i < 3; i++){
+			for(int j = 0; j < 3; j++){
+				g2.drawImage(background.getScaledInstance(390, 260, Image.SCALE_DEFAULT), i*390, j*260, null);
+			}
+		}
 		
-		//create a GraphIcon for the grid.walls and paint it black
-		GraphIcon w = new GraphIcon(grid.walls);
-		g2.setColor(Color.BLACK);
-		w.paintIcon(arg0, g2, dx, dy);	
 		
-		//preliminary test of longest path drawing by drawing the two endpoints with blue circles
+		
 		grid.findFurthestVertex(grid.path.getVertex(0,0),0);
 		start = grid.farthestVert;
-		
+		GraphIcon wall = new GraphIcon(grid.walls);
+		wall.paintIcon(arg0, g2, dx, dy);
 		grid.resetMarkers();
 		grid.findFurthestVertex(start,0);
-<<<<<<< HEAD
+
 		end = new Vertex(grid.farthestVert);
-		Image img=new ImageIcon("resources/bulbasaur.png").getImage();
-		g2.drawImage(img,end.getX(),end.getY(),null);
-		//.Double startCircle = new Ellipse2D.Double(10*start.getX() - 5,10*start.getY()-5, 10,10);
-		//Ellipse2D.Double endCircle = new Ellipse2D.Double(10*end.getX()-5, 10*end.getY()-5, 10, 10);
-		//g2.setColor(Color.BLUE);
-		//g2.fill(startCircle);
-		//g2.setColor(Color.RED);
-		//g2.fill(endCircle);
-=======
+
 		Vertex end = new Vertex(grid.farthestVert);
-		
-		Ellipse2D.Double startCircle = new Ellipse2D.Double(10*start.getX()-5 + dx,10*start.getY()-5 +dy, 10,10);
-		Ellipse2D.Double endCircle = new Ellipse2D.Double(10*end.getX()-5 + dx, 10*end.getY()-5 + dy, 10, 10);
-		g2.setColor(Color.BLUE);
-		g2.fill(startCircle);
-		g2.setColor(Color.RED);
-		g2.fill(endCircle);
->>>>>>> 6bc7f5dd23922a6cc8fd4dccb8b004d9a16c5ee0
-		
+
 		grid.resetMarkers();
 		grid.makeLongestPath(start, new Vertex(start), end);
 		grid.resetMarkers();
 		
-		//draw the longest path in color BLUE
-		g2.setColor(Color.BLUE);
-		for(int i = 0 ; i< grid.longestPath.size()-1; i++) {
-			Line2D.Double l1 = grid.longestPath.get(i).toLine(grid.longestPath.get(i+1), 10, 2, 2);
-			g2.draw(l1);
-		}
 	}
 
 }
