@@ -2,28 +2,22 @@ import java.awt.BasicStroke;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
 import javax.swing.Icon;
-
-
 
 public class GameIcon implements Icon{
 
 	private Grid grid;
 	private int height;
 	private int width;
-	private BufferedImage background;
 	private Player play;
 	private ArrayList<Monster> monsters;
+	private ArrayList<Attack> attacks;
 	private int i;
 	
 	
 	public GameIcon(Grid g, Player p, ArrayList<Monster> m){
+		attacks = new ArrayList<Attack>();
 		grid = g;
 		height = 42*grid.getHeight();
 		width = 42*grid.getWidth();
@@ -48,6 +42,14 @@ public class GameIcon implements Icon{
 	public int getIconWidth() {
 		// TODO Auto-generated method stub
 		return width;
+	}
+	
+	public void addAttack(ArrayList<Attack> a){
+		attacks.addAll(a);
+	}
+	
+	public void removeAttacks(ArrayList<Attack>a){
+		attacks.removeAll(a);
 	}
 	
 
@@ -80,10 +82,19 @@ public class GameIcon implements Icon{
 			MonsterIcon monster = new MonsterIcon(monsters.get(i));
 			monster.paintIcon(arg0, g2, 17*(int)((monsters.get(i)).getX()-1), 17*(int)((monsters.get(i)).getY()-1));
 		}
+		if(monsters.size() > 1){
+			StairsIcon stairs = new StairsIcon();
+			stairs.paintIcon(arg0, g2, 0, 0);
+		}
 		
 		//draw player
 		PlayerIcon person = new PlayerIcon(play);
 		person.paintIcon(arg0, g2, 17*(int)play.getX(), 17*(int)play.getY()-3);
+		//draw attacks
+		for(int i = 0; i < attacks.size();i++){
+			AttackIcon atkIcon = new AttackIcon(attacks.get(i));
+			atkIcon.paintIcon(arg0, g2, 0, 0);
+		}
 		
 	}
 
