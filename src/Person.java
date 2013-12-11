@@ -1,4 +1,5 @@
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.lang.Math.*;
 import java.util.ArrayList;
 
@@ -11,6 +12,7 @@ public abstract class Person {
 	protected int maxHealth;
 	private int health;
 	private boolean isAlive;
+	private BufferedImage image;
 	
 	protected Person(Path p, Vertex v) {
 		vert = new Vertex(v);
@@ -19,6 +21,16 @@ public abstract class Person {
 		health = 100;
 		isAlive = true;
 		path = p;
+	}
+	
+	public void setImage(BufferedImage im) {
+		image = im;
+	}
+	
+	//return the image of the character
+	public BufferedImage getImage() {
+		if(image == null) return null;
+		return image;
 	}
 	
 	//get the current health
@@ -67,9 +79,6 @@ public abstract class Person {
 		return loc.getY();
 	}
 	
-	public void setSprite(Image img){
-		
-	}
 	
 	//move the person
 	public void move(double dx, double dy) {

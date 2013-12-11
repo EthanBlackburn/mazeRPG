@@ -23,42 +23,30 @@ import javax.swing.KeyStroke;
 
 public class MazeBoard extends JPanel{
 	
-	//board should have a person
-	private Player person1;
 	
-	//board should have a grid, path, and walls
-	private Grid grid;
-	private Path path;
-	private ArrayList<Wall> walls;
-	private BufferedImage image;
+	private Level l;
+	private Player person1;
 	
 	
 	public MazeBoard(int w, int h) {
 		super();
-	
+		
+		l = new Level(1,w,h);
+		person1 = l.getPlayer();
 		KeyListener listener = new MyKeyListener();
 		addKeyListener(listener);
 		setFocusable(true);
 		setLayout(new GridLayout());
+		add(l);
+		l.setFocusable(true);
 		
-		grid = new Grid(w,h);
-		//person1 = new Player()
-		this.walls = new ArrayList();
-		repaint();
+		
 	}
 	
-	public void addPath(Path p) {
-		path = p;
+	public Level getLevel(){
+		return l;
 	}
 	
-	public void addWall(Wall w) {
-		Wall wall = w;
-		walls.add(wall);
-	}
-	
-	public Grid getGrid(){
-		return grid;
-	}
 	
 	
 	public class MyKeyListener implements KeyListener {
@@ -71,12 +59,16 @@ public class MazeBoard extends JPanel{
 		public void keyPressed(KeyEvent e) {
 			switch(e.getKeyCode()){
 			case KeyEvent.VK_DOWN:person1.move(0, -1);
+			repaint();
 			break;
 			case KeyEvent.VK_UP:person1.move(0, 1);
+			repaint();
 			break;
 			case KeyEvent.VK_LEFT:person1.move(-1, 0);
+			repaint();
 			break;
 			case KeyEvent.VK_RIGHT:person1.move(1, 0);
+			repaint();
 			break;
 			}
 		}

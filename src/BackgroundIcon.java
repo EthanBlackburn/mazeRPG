@@ -36,9 +36,9 @@ public class BackgroundIcon implements Icon{
 	    } catch (IOException ex) {
 	           System.out.println("couldnt ground image");
 	    }
-		for(int i = 0; i < 3; i++){
-			for(int j = 0; j < 3; j++){
-				g2.drawImage(background.getScaledInstance(390, 260, Image.SCALE_DEFAULT), i*390, j*260, null);
+		for(int i = 0; i < 61; i++){
+			for(int j = 0; j < 41; j++){
+				g2.drawImage(background.getScaledInstance(17, 17, Image.SCALE_DEFAULT), i*17, j*17, null);
 			}
 		}
 		
