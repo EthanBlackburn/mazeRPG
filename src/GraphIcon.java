@@ -42,15 +42,13 @@ public class GraphIcon implements Icon{
 	    } catch (IOException ex) {
 	           System.out.println("couldnt load tree image");
 	    }
+		Image temp= image.getScaledInstance(scaleFactor,scaleFactor,Image.SCALE_DEFAULT);
 		for(int i = 0; i< getIconWidth(); i++){
-			System.out.println("c");
 			for(int j = 0; j< getIconHeight(); j++){
-				System.out.println("d");
-				g2.drawImage(image.getScaledInstance(scaleFactor,scaleFactor,Image.SCALE_DEFAULT),graph.getVertex(i,j).getX()*scaleFactor,graph.getVertex(i,j).getY()*scaleFactor,null);
+				g2.drawImage(temp,graph.getVertex(i,j).getX()*scaleFactor,graph.getVertex(i,j).getY()*scaleFactor,null);
 				for(int k = 0; k< graph.getVertex(i, j).connections.size(); k++) {
-					System.out.println("b");
 					
-					g2.drawImage(image.getScaledInstance(scaleFactor,scaleFactor,Image.SCALE_DEFAULT),graph.getVertex(i,j).getMidX(graph.getVertex(i, j).getConnection(k))*scaleFactor,graph.getVertex(i,j).getMidY(graph.getVertex(i, j).getConnection(k))*scaleFactor,null);
+					g2.drawImage(temp,graph.getVertex(i,j).getMidX(graph.getVertex(i, j).getConnection(k))*scaleFactor,graph.getVertex(i,j).getMidY(graph.getVertex(i, j).getConnection(k))*scaleFactor,null);
 				}
 			}
 		}

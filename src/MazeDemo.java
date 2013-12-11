@@ -14,7 +14,7 @@ public class MazeDemo {
 	      
 	  
 		
-		final MazeBoard scene = new MazeBoard(30,20);
+		final MazeBoard scene = new MazeBoard(19,19);
 	    frame.setLayout(new FlowLayout());
 	    frame.add(scene);
 	    frame.pack();
