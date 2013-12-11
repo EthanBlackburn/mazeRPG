@@ -1,46 +1,30 @@
 import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+
 
 
 public class GameIcon implements Icon{
 
 	private Grid grid;
-	private Player player;
-	private int x;
-	private int y;
 	private int height;
 	private int width;
-	private Vertex start;
-	private Vertex end;
-	private BufferedImage background;
+	private Player p;
 	
-	public GameIcon(Grid g){
+	
+	public GameIcon(Grid g, Player p){
 		grid = g;
 		height = 42*grid.getHeight();
 		width = 42*grid.getWidth();
-		x = grid.getWidth()*2;
-		y = grid.getHeight()*2;
-		if(height > 41*17){
-			height = 41*17;
+		if(height > 42*17){
+			height = 42*17;
 		}
-		if(width > 61*17){
-			width = 61*17;
+		if(width > 62*17){
+			width = 62*17;
 		}
 	}
 	
@@ -66,23 +50,14 @@ public class GameIcon implements Icon{
 		
 		int dx = 5;
 		int dy = 5;
-		
-		
-		
-		grid.findFurthestVertex(grid.path.getVertex(0,0),0);
-		start = grid.farthestVert;
+	
+		BackgroundIcon background = new BackgroundIcon();
+		background.paintIcon(arg0, g2, 0, 0);
 		GraphIcon wall = new GraphIcon(grid.walls);
+		PersonIcon person = new PersonIcon(p);
+		person.paintIcon(arg0, g2, 5, 5);
 		wall.paintIcon(arg0, g2, dx, dy);
-		grid.resetMarkers();
-		grid.findFurthestVertex(start,0);
 
-		end = new Vertex(grid.farthestVert);
-
-		Vertex end = new Vertex(grid.farthestVert);
-
-		grid.resetMarkers();
-		grid.makeLongestPath(start, new Vertex(start), end);
-		grid.resetMarkers();
 		
 	}
 
