@@ -40,13 +40,6 @@ public class MazeBoard extends JPanel{
 		addKeyListener(listener);
 		setFocusable(true);
 		setLayout(new GridLayout());
-		java.net.URL url = getClass().getResource("/resources/environment/tree.png");
-		try {                
-	         image = ImageIO.read(url);
-	    } catch (IOException ex) {
-	           System.out.println("shit");
-	    }
-		//g2.drawImage(image.getScaledInstance(25,25,Image.SCALE_DEFAULT),x-10, y+10,null);
 		
 		grid = new Grid(w,h);
 		//person1 = new Player()
@@ -71,6 +64,7 @@ public class MazeBoard extends JPanel{
 	public class MyKeyListener implements KeyListener {
 		@Override
 		public void keyTyped(KeyEvent e) {
+			
 		}
 
 		@Override
