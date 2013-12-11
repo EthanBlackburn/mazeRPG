@@ -1,3 +1,4 @@
+import java.awt.Image;
 import java.lang.Math.*;
 import java.util.ArrayList;
 
@@ -64,6 +65,10 @@ public abstract class Person {
 	//get the person's y coordinate
 	public Double getY() {
 		return loc.getY();
+	}
+	
+	public void setSprite(Image img){
+		
 	}
 	
 	//move the person
