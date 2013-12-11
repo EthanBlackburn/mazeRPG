@@ -48,6 +48,14 @@ public class Vertex {
 		return (int)loc.getY();
 	}
 	
+	public int getMidX(Vertex v){
+		return (v.getX() + getX())/2;
+	}
+	
+	public int getMidY(Vertex v){
+		return (v.getY() + getY())/2;
+	}
+	
 	//returns the location of the vertex
 	public Location getLocation() {
 		return loc;
