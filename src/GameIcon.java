@@ -67,18 +67,6 @@ public class GameIcon implements Icon{
 		int dx = 5;
 		int dy = 5;
 		
-		java.net.URL url = getClass().getResource("/resources/environment/ground.png");
-		try {                
-	         background = ImageIO.read(url);
-	    } catch (IOException ex) {
-	           System.out.println("couldnt ground image");
-	    }
-		for(int i = 0; i < 3; i++){
-			for(int j = 0; j < 3; j++){
-				g2.drawImage(background.getScaledInstance(390, 260, Image.SCALE_DEFAULT), i*390, j*260, null);
-			}
-		}
-		
 		
 		
 		grid.findFurthestVertex(grid.path.getVertex(0,0),0);
