@@ -18,14 +18,14 @@ public class Path extends Graph{
 	public Vertex forward(Vertex vert) {
 		//some of the vertices only have one connection, in which case we don't distinguish between forward or backward
 		if((vert.connections).size() > 1 ){
-			return vert.connections.get(2);
+			return vert.connections.get(1);
 		}
 		else {
-			return vert.connections.get(1);
+			return vert.connections.get(0);
 		}
 	}
 	
 	public Vertex backward(Vertex vert) {
-		return vert.connections.get(1);
+		return vert.connections.get(0);
 	}
 }

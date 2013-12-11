@@ -9,15 +9,20 @@ import javax.imageio.ImageIO;
 import javax.swing.Icon;
 
 
-public class PersonIcon implements Icon{
+public class PlayerIcon implements Icon{
 
 	private BufferedImage player;
-	private Person pers;
+	private Player pers;
 	
 	
-	public PersonIcon(Person p){
+	public PlayerIcon(Player p){
 		pers = p;
-		player = p.getImage();
+		java.net.URL url = getClass().getResource("/resources/player/52432.png");
+		try {                
+	         player = ImageIO.read(url);
+	    } catch (IOException ex) {
+	           System.out.println("couldnt load player image");
+	    }
 	}
 	@Override
 	public int getIconHeight() {
