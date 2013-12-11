@@ -2,8 +2,12 @@ import java.awt.BasicStroke;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 
 
@@ -13,10 +17,13 @@ public class GameIcon implements Icon{
 	private Grid grid;
 	private int height;
 	private int width;
-	private Player p;
+	private BufferedImage background;
+	private Player play;
+	private ArrayList<Monster> monsters;
+	private int i;
 	
 	
-	public GameIcon(Grid g, Player p){
+	public GameIcon(Grid g, Player p, ArrayList<Monster> m){
 		grid = g;
 		height = 42*grid.getHeight();
 		width = 42*grid.getWidth();
@@ -26,6 +33,9 @@ public class GameIcon implements Icon{
 		if(width > 62*17){
 			width = 62*17;
 		}
+		i = 0;
+		play = p;
+		monsters = m;
 	}
 	
 	@Override
@@ -45,46 +55,35 @@ public class GameIcon implements Icon{
 	public void paintIcon(Component arg0, Graphics arg1, int arg2, int arg3) {
 		Graphics2D g2 = (Graphics2D) arg1;
 		
-		BasicStroke stroke = new BasicStroke(2);
-		g2.setStroke(stroke);
+
 		
 		int dx = 5;
 		int dy = 5;
-<<<<<<< HEAD
-		
-		java.net.URL url = getClass().getResource("/resources/environment/ground.png");
-		try {                
-	         background = ImageIO.read(url);
-	    } catch (IOException ex) {
-	           System.out.println("couldnt ground image");
-	    }
-		for(int i = 0; i < 3; i++){
-			for(int j = 0; j < 3; j++){
-				g2.drawImage(background.getScaledInstance(390, 260, Image.SCALE_DEFAULT), i*390, j*260, null);
-			}
-		}
-		
-		
+			
+			
+			
 		BasicStroke stroke2 = new BasicStroke(10);
 		//create a GraphIcon for the grid.walls and paint it black
 		g2.setStroke(stroke2);
 		GraphIcon w = new GraphIcon(grid.walls);
-		g2.setColor(Color.BLACK);
 		w.paintIcon(arg0, g2, dx, dy);	
-		g2.setStroke(stroke);
-		//preliminary test of longest path drawing by drawing the two endpoints with blue circles
-		grid.findFurthestVertex(grid.path.getVertex(0,0),0);
-		start = grid.farthestVert;
-=======
+		
 	
-		BackgroundIcon background = new BackgroundIcon();
+		BackgroundIcon background = new BackgroundIcon(grid.path);
 		background.paintIcon(arg0, g2, 0, 0);
->>>>>>> ea360e75358e9891da53bbb28938dec63afe1e4c
 		GraphIcon wall = new GraphIcon(grid.walls);
-		PersonIcon person = new PersonIcon(p);
-		person.paintIcon(arg0, g2, 5, 5);
+		
 		wall.paintIcon(arg0, g2, dx, dy);
-
+		
+		//draw monsters
+		for(int i = 0; i<monsters.size(); i++) {
+			MonsterIcon monster = new MonsterIcon(monsters.get(i));
+			monster.paintIcon(arg0, g2, 17*(int)((monsters.get(i)).getX()-1), 17*(int)((monsters.get(i)).getY()-1));
+		}
+		
+		//draw player
+		PlayerIcon person = new PlayerIcon(play);
+		person.paintIcon(arg0, g2, 17*(int)play.getX(), 17*(int)play.getY()-3);
 		
 	}
 

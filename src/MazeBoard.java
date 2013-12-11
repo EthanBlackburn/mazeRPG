@@ -1,4 +1,5 @@
 import java.awt.FlowLayout;
+import java.util.Random;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -31,7 +32,7 @@ public class MazeBoard extends JPanel{
 	public MazeBoard(int w, int h) {
 		super();
 		
-		l = new Level(1,w,h);
+		l = new Level(4,w,h);
 		person1 = l.getPlayer();
 		KeyListener listener = new MyKeyListener();
 		addKeyListener(listener);
@@ -57,17 +58,36 @@ public class MazeBoard extends JPanel{
 
 		@Override
 		public void keyPressed(KeyEvent e) {
+			Random rnd = new Random();
+			for(int i = 0; i < l.monsters.size(); i++){
+				int tempx = (int)(l.monsters.get(i)).getX();
+				int tempy = (int)(l.monsters.get(i)).getY();
+				while((int)l.monsters.get(i).getX() == tempx & (int)l.monsters.get(i).getY() == tempy){
+					int x = rnd.nextInt(3)-1;
+					int y;
+					if(x==0){
+						y = (rnd.nextInt(2)-1);
+						if(y == 0){
+							y=1;
+						}
+					}
+					else {
+						y = 0;
+					}
+					(l.monsters.get(i)).move(x,y);
+				}
+			}
 			switch(e.getKeyCode()){
-			case KeyEvent.VK_DOWN:person1.move(0, -1);
+			case KeyEvent.VK_DOWN:person1.move(0, 1.0);
 			repaint();
 			break;
-			case KeyEvent.VK_UP:person1.move(0, 1);
+			case KeyEvent.VK_UP:person1.move(0, -1.0);
 			repaint();
 			break;
-			case KeyEvent.VK_LEFT:person1.move(-1, 0);
+			case KeyEvent.VK_LEFT:person1.move(-1.0, 0);
 			repaint();
 			break;
-			case KeyEvent.VK_RIGHT:person1.move(1, 0);
+			case KeyEvent.VK_RIGHT:person1.move(1.0, 0);
 			repaint();
 			break;
 			}

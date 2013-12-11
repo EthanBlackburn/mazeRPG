@@ -70,12 +70,12 @@ public abstract class Person {
 	}
 	
 	//get the person's x coordinate
-	public Double getX() {
+	public double getX() {
 		return loc.getX();
 	}
 	
 	//get the person's y coordinate
-	public Double getY() {
+	public double getY() {
 		return loc.getY();
 	}
 	
@@ -86,31 +86,33 @@ public abstract class Person {
 			return;
 		}
 		loc.increment(dx, dy);
-		//change vert if the person moves closer to either the forward or backward Vertices than the current vert
-		if(loc.dist(vert.getLocation()) > loc.dist(path.forward(vert).getLocation())) {
-			vert = path.forward(vert);
-		}
-		else if(loc.dist(vert.getLocation()) > loc.dist(path.backward(vert).getLocation())) {
-			vert = path.backward(vert);
+		double tempx = loc.getX();
+		double tempy = loc.getY();
+		for(int i = 0; i<vert.connections.size(); i++){
+			if(vert.connections.get(i).getX() == tempx & vert.connections.get(i).getY() == tempy) {
+				vert = vert.connections.get(i);
+				return;
+			}
 		}
 	}
 	
 	//check the validity of a move in the path
 	public boolean isValidMove(double dx, double dy) {
-		//temp is the potentional next location
-		Location temp = new Location(loc);
-		temp.increment(dx,dy);
-		//temp2 is a place holder for the location of the forward and backward vertex;
-		Location forwardLoc = path.forward(vert).getLocation();
-		Location backwardLoc = path.backward(vert).getLocation();
-		if(loc.dist(forwardLoc) > temp.dist(forwardLoc)) {
+		double tempx = loc.getX()+dx;
+		double tempy = loc.getY()+dy;
+		double temp2x = loc.getX() +2*dx;
+		double temp2y = loc.getY() + 2*dy;
+		for(int i = 0; i<vert.connections.size(); i++){
+			double potx = vert.connections.get(i).getX();
+			double poty = vert.connections.get(i).getY();
+			if((potx == tempx & poty == tempy) | (potx == temp2x & poty == temp2y)) {
+				return true;
+			}
+		}
+		if(vert.getX() == loc.getX() + dx & vert.getY() == loc.getY() + dy) {
 			return true;
 		}
-		else if(loc.dist(backwardLoc) > temp.dist(backwardLoc)) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return false;
+
 	}
 }
