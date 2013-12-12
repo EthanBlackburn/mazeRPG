@@ -1,9 +1,14 @@
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.lang.Math.*;
-import java.util.ArrayList;
 
-public abstract class Person {
+import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+
+import javax.imageio.ImageIO;
+import javax.swing.JComponent;
+
+
+public abstract class Person{
 	
 	//a person will always have a location
 	protected Location loc;
@@ -12,15 +17,25 @@ public abstract class Person {
 	protected int maxHealth;
 	private int health;
 	private boolean isAlive;
+	protected int attack;
 	private BufferedImage image;
+	private String Direction;
 	
 	protected Person(Path p, Vertex v) {
+		Direction = "down";
 		vert = new Vertex(v);
 		loc = new Location(v.getX(), v.getY());
 		maxHealth = 100;
 		health = 100;
 		isAlive = true;
 		path = p;
+	}
+	public void setDirection(String s){
+		Direction = s;
+	}
+	
+	public String getDirection(){
+		return Direction;
 	}
 	
 	public void setImage(BufferedImage im) {
@@ -48,6 +63,38 @@ public abstract class Person {
 		}
 	}
 	
+	public int getAttack(){
+		return attack;
+	}
+	
+	public void setAttack(int a){
+		attack = a;
+	}
+	
+	public void Attack(String s){
+		URL url;
+		if(s =="up"){
+			url = getClass().getResource("/resources/attacks/blast_up.png");
+		}
+		else if(s =="down"){
+			url = getClass().getResource("/resources/attacks/blast_down.png");
+		}
+		else if(s =="left"){
+			url = getClass().getResource("/resources/attacks/blast_left.png");
+		}
+		else{
+			url = getClass().getResource("/resources/attacks/blast_right.png");
+		}
+		
+		
+		try {                
+	         image = ImageIO.read(url);
+	    } catch (IOException ex) {
+	           System.out.println("couldnt load blast image");
+	    }
+		
+	}
+	
 	//increment the current health
 	public void incrementHealth(int dh) {
 		if (health + dh > maxHealth) {
@@ -70,13 +117,14 @@ public abstract class Person {
 	}
 	
 	//get the person's x coordinate
-	public double getX() {
-		return loc.getX();
+	public int getX() {
+		return (int)loc.getX();
 	}
 	
+	
 	//get the person's y coordinate
-	public double getY() {
-		return loc.getY();
+	public int getY() {
+		return (int)loc.getY();
 	}
 	
 	
@@ -94,6 +142,13 @@ public abstract class Person {
 				return;
 			}
 		}
+	}
+	
+	public void moveTo(Vertex v){
+		if(isValidMove(v.getX(),v.getY())){
+			loc.setLocation(v.getX(), v.getY());
+		}
+		
 	}
 	
 	//check the validity of a move in the path

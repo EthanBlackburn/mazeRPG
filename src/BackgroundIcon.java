@@ -39,8 +39,9 @@ public class BackgroundIcon implements Icon{
 		try {                
 	         image = ImageIO.read(url);
 	    } catch (IOException ex) {
-	           System.out.println("couldnt load tree image");
+	           System.out.println("couldnt load ground image");
 	    }
+		
 		Image temp= image.getScaledInstance(scaleFactor,scaleFactor,Image.SCALE_DEFAULT);
 		for(int i = 0; i< getIconWidth(); i++){
 			for(int j = 0; j< getIconHeight(); j++){

@@ -235,7 +235,12 @@ public class Grid {
 	}
 	
 	public Vertex getVertex2(int i, int j) {
-		return walls.getVertex(i,j);
+		if(walls.getVertex(i,j)!= null){
+			return walls.getVertex(i,j);
+		}
+		else{
+			return null;
+		}
 	}
 	
 	public Vertex getLPVertex(int i) {

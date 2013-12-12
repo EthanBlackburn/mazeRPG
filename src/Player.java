@@ -13,6 +13,7 @@ public class Player extends Person{
 		super(p,p.getVertex(0, 0));
 		vert = super.vert;
 		maxHealth = 200;
+		attack = 20;
 		setHealth(maxHealth);
 		level = 1;
 		java.net.URL url = getClass().getResource("/resources/player/52432.png");
@@ -27,11 +28,11 @@ public class Player extends Person{
 		return super.getImage();
 	}
 	
-	public double getX() {
+	public int getX() {
 		return super.getX();
 	}
 	
-	public double getY() {
+	public int getY() {
 		return super.getY();
 	}
 }
