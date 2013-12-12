@@ -1,6 +1,4 @@
-import java.math.*;
-import java.awt.Point;
-import java.lang.Math.*;
+
 
 public class Location{
 	//coordinate location

@@ -50,9 +50,12 @@ public class Level extends JPanel{
 		add(player);
 	}
 	
-	public void addAttacks(ArrayList<Attack> a){
-		System.out.println("Adding attacks to GameIcon");
+	public void addAttack(Attack a){
 		GI.addAttack(a);
+	}
+	
+	public void addAttacks(ArrayList<Attack> a){
+		GI.addAttacks(a);
 	}
 	
 	public int getDifficulty(){
@@ -69,14 +72,15 @@ public class Level extends JPanel{
  
 	public ArrayList<Attack> DetectCollision(ArrayList<Attack> attacks){
 		ArrayList<Attack> collisions = new ArrayList<Attack>();
+		
 		LOOP:for(int i = 0; i < attacks.size(); i++){
 			for(int k = 0; k < monsters.size();k++){
 				if(grid.getVertex2(attacks.get(i).getVertex().getX(), attacks.get(i).getVertex().getY()) != null ){
-					System.out.println("EEEEEEEEEEE");
 					collisions.add(attacks.get(i));
 					break LOOP;
 				}
 				else if(monsters.get(k).getLocation() == attacks.get(i).getLocation()){
+					
 					monsters.get(k).incrementHealth(-attacks.get(i).getStrength());
 					collisions.add(attacks.get(i));
 					if(monsters.get(k).getHealth() <= 0){
@@ -90,12 +94,14 @@ public class Level extends JPanel{
 		if(collisions.isEmpty() == false){
 			System.out.println("Removing attacks from GameIcon");
 			GI.removeAttacks(collisions);
+			
 		}
 		return collisions;
 		
 	}
 	ActionListener listener = new ActionListener(){
 		public void actionPerformed(ActionEvent evt){
+			DetectCollision(GI.getAttacks());
 			repaint();
 		}
 	};

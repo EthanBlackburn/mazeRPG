@@ -13,7 +13,6 @@ public class GameIcon implements Icon{
 	private Player play;
 	private ArrayList<Monster> monsters;
 	private ArrayList<Attack> attacks;
-	private int i;
 	
 	
 	public GameIcon(Grid g, Player p, ArrayList<Monster> m){
@@ -27,7 +26,6 @@ public class GameIcon implements Icon{
 		if(width > 62*17){
 			width = 62*17;
 		}
-		i = 0;
 		play = p;
 		monsters = m;
 	}
@@ -44,7 +42,15 @@ public class GameIcon implements Icon{
 		return width;
 	}
 	
-	public void addAttack(ArrayList<Attack> a){
+	public ArrayList<Attack> getAttacks(){
+		return attacks;
+	}
+	
+	public void addAttack(Attack a){
+		attacks.add(a);
+	}
+	
+	public void addAttacks(ArrayList<Attack> a){
 		attacks.addAll(a);
 	}
 	

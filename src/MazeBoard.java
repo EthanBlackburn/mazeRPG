@@ -36,7 +36,6 @@ public class MazeBoard extends JPanel{
 	private int height;
 	private Display disp;
 	private final Set<Integer> pressed;
-	private ArrayList<Attack> attacks;
 	
 	
 	public MazeBoard(int w, int h) {
@@ -45,7 +44,6 @@ public class MazeBoard extends JPanel{
 		width = w;
 		height = h;
 		l = new Level(1,w,h);
-		attacks = new ArrayList<Attack>();
 		pressed = new HashSet<Integer>();
 		person1 = l.getPlayer();
 		KeyListener listener = new MyKeyListener();
@@ -78,7 +76,7 @@ public class MazeBoard extends JPanel{
 				if (pressed.size() > 1) {
 					if(pressed.contains(KeyEvent.VK_SPACE)){
 						Location attackLoc = new Location(person1.getLocation());
-						attacks.add(new Attack(person1.getAttack(),"down",attackLoc));
+						l.addAttack(new Attack(person1.getAttack(),"down",attackLoc));
 						pressed.remove(KeyEvent.VK_SPACE);
 						
 					}
@@ -91,7 +89,7 @@ public class MazeBoard extends JPanel{
 				if (pressed.size() > 1) {
 		        	if(pressed.contains(KeyEvent.VK_SPACE)){
 		        		Location attackLoc = new Location(person1.getLocation());
-		        		attacks.add(new Attack(person1.getAttack(),"up",attackLoc));
+		        		l.addAttack(new Attack(person1.getAttack(),"up",attackLoc));
 		        		pressed.remove(KeyEvent.VK_SPACE);
 		        		
 		        	}
@@ -105,7 +103,7 @@ public class MazeBoard extends JPanel{
 				if (pressed.size() > 1) {
 		        	if(pressed.contains(KeyEvent.VK_SPACE)){
 		        		Location attackLoc = new Location(person1.getLocation());
-		        		attacks.add(new Attack(person1.getAttack(),"left",attackLoc));
+		        		l.addAttack(new Attack(person1.getAttack(),"left",attackLoc));
 		        		pressed.remove(KeyEvent.VK_SPACE);
 		        		
 		        	}
@@ -118,12 +116,12 @@ public class MazeBoard extends JPanel{
 				if (pressed.size() > 1) {
 		        	if(pressed.contains(KeyEvent.VK_SPACE)){
 		        		Location attackLoc = new Location(person1.getLocation());
-		        		attacks.add(new Attack(person1.getAttack(),"right",attackLoc));
+		        		l.addAttack(new Attack(person1.getAttack(),"right",attackLoc));
 		        		pressed.remove(KeyEvent.VK_SPACE);
 		        		
 		        	}
 		        }
-				l.addAttacks(attacks);
+				
 				repaint();			
 			}
 			
@@ -136,7 +134,6 @@ public class MazeBoard extends JPanel{
 				l = new Level(diff,width,height);
 				disp.setLevel(diff);
 				person1 = l.getPlayer();
-				attacks = new ArrayList<Attack>();
 				add(l);
 				revalidate();
 				l.setFocusable(true);
