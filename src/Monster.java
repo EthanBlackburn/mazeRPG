@@ -74,20 +74,19 @@ public class Monster extends Person {
 		
 	}
 	
-	public Vertex next(Player p, Vertex z){ //monsters essentially go through map switching locations but attack player if close
-		Vertex v = z;
+	public Vertex next(Player p, Vertex v){ //monsters essentially go through map switching locations but attack player if close
 		mPath.put(v, "discovered");
-		Stack<Vertex> locations = new Stack<Vertex>();
-		for(Iterator<Vertex>i = v.adjacentVertices(this).iterator();i.hasNext();){
+		for(int i = 0; i<v.connections.size(); i++){
 			
-			Vertex check = locations.peek();
+			Vertex check = v.connections.get(i);
 			
-			if(withinRange(p,0,check)){
+			if(check.getX() == p.getX() & check.getY() == p.getY()){
 				System.out.println("near player");
 				mPath.clear();
 				return check;
 			}
 			else if(mPath.containsKey(check) == false){
+				System.out.println("doesn't contain key");
 				mPath.put(check,"discovered");
 				next(p,check);
 					
