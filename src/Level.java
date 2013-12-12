@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -17,14 +18,15 @@ public class Level extends JPanel{
 	private IconAdapter walls;
 	protected ArrayList<Monster> monsters;
 	private GameIcon GI;
-	private Timer t;
+	//private Timer t;
 	private int difficulty;
+	
 	
 	public Level(int d, int w, int h){
 		
 		super();
-		t = new Timer(200,listener);
-		t.start();
+		//t = new Timer(200,listener);
+		//t.start();
 		difficulty = d;
 		grid = new Grid(w,h);
 		person1 = new Player(grid.path);
@@ -48,6 +50,10 @@ public class Level extends JPanel{
 	
 	public void addPlayer(){
 		add(player);
+	}
+	
+	public GameIcon getGI(){
+		return GI;
 	}
 	
 	public void addAttack(Attack a){
@@ -75,9 +81,7 @@ public class Level extends JPanel{
 		
 		LOOP:for(int i = 0; i < attacks.size(); i++){
 			for(int k = 0; k < monsters.size();k++){
-				if(grid.getVertex2(attacks.get(i).getVertex().getX(), attacks.get(i).getVertex().getY()) != null ){
-					System.out.println(attacks.get(i).getLocation().getX());
-					System.out.println(attacks.get(i).getLocation().getY());
+				if(grid.getVertex2(attacks.get(i).getVertex().getX(), attacks.get(i).getVertex().getY()) != null ){//isnt detecting walls
 					collisions.add(attacks.get(i));
 					break LOOP;
 				}
@@ -90,26 +94,23 @@ public class Level extends JPanel{
 					}
 					
 				}
+				else if(person1.getLocation() == attacks.get(i).getLocation()){
+					
+					person1.incrementHealth(-attacks.get(i).getStrength());
+					collisions.add(attacks.get(i));
+
+					
+				}
 				
 			}
 		}
 		if(collisions.isEmpty() == false){
-			System.out.println("Removing attacks from GameIcon");
+			
 			GI.removeAttacks(collisions);
 			
 		}
 		return collisions;
 		
 	}
-	ActionListener listener = new ActionListener(){
-		public void actionPerformed(ActionEvent evt){
-			DetectCollision(GI.getAttacks());
-			for(int i = 0; i < monsters.size();i++){
-				if(monsters.get(i).isClose()){
-					addAttack(new Attack(monsters.get(i).getAttack(),monsters.get(i).getDirection(),monsters.get(i).getLocation()));
-				}
-			}
-			repaint();
-		}
-	};
+	
 }

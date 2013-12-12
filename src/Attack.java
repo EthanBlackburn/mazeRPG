@@ -16,6 +16,22 @@ public class Attack{
 		direction = d;
 		strength = s;
 		loc = l;
+		int tempy = loc.getY();
+		int tempx = loc.getX();
+		if(direction == "up"){
+			tempy+=-1.0;
+		}
+		else if(direction == "down"){
+			tempy+=1.0;
+		}
+		else if(direction == "right"){
+			tempx+=1.0;
+		}
+		else{
+			tempx+=-1.0;
+		}
+		
+		loc.setLocation(tempx, tempy);
 		vert = new Vertex(loc);
 		t = new Timer(500,attackListener);
 		t.start();

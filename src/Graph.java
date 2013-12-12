@@ -15,7 +15,12 @@ public abstract class Graph {
 	}
 	
 	public Vertex getVertex(int i, int j) {
-		return graph[i][j];
+		try{
+			return graph[i][j];
+		}catch(Exception e){
+			
+			return graph[0][0];
+		}
 	}
 	
 	public int getHeight(){

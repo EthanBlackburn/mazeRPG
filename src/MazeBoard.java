@@ -35,6 +35,7 @@ public class MazeBoard extends JPanel{
 	private int width;
 	private int height;
 	private Display disp;
+	private Timer t;
 	private final Set<Integer> pressed;
 	
 	
@@ -44,6 +45,7 @@ public class MazeBoard extends JPanel{
 		width = w;
 		height = h;
 		l = new Level(1,w,h);
+		
 		pressed = new HashSet<Integer>();
 		person1 = l.getPlayer();
 		KeyListener listener = new MyKeyListener();
@@ -53,6 +55,8 @@ public class MazeBoard extends JPanel{
 		add(disp);
 		add(l);
 		l.setFocusable(true);
+		t = new Timer(200,Alistener);
+		t.start();
 		
 	}
 	
@@ -134,13 +138,15 @@ public class MazeBoard extends JPanel{
 				if(diff > 4){
 					//either make fifth level with trophy or popup window
 				}
-				l = new Level(diff,width,height);
+				t.stop();
 				disp.setLevel(diff);
+				l = new Level(diff,width,height);
 				person1 = l.getPlayer();
 				add(l);
 				revalidate();
 				l.setFocusable(true);
 				repaint();
+				t.restart();
 			}
 		}
 
@@ -150,7 +156,69 @@ public class MazeBoard extends JPanel{
 				pressed.remove(e.getKeyCode());
 			}
 		}
+		
+		
 	}
+	
+	ActionListener Alistener = new ActionListener(){
+		public void actionPerformed(ActionEvent evt){
+			l.DetectCollision(l.getGI().getAttacks());
+			for(int i = 0; i < l.monsters.size();i++){
+				if(l.monsters.get(i).isClose()){
+					String dir;
+					if(person1.getVertex().getY() == l.monsters.get(i).getY() & person1.getVertex().getX() >= l.monsters.get(i).getX()){
+						dir = "right";
+					}
+					else if(person1.getVertex().getY() == l.monsters.get(i).getY() & person1.getVertex().getX() < l.monsters.get(i).getX()){
+						dir = "left";
+					}
+					else if(person1.getVertex().getX() == l.monsters.get(i).getX() & person1.getVertex().getY() >= l.monsters.get(i).getY()){
+						dir = "down";
+					}
+					else {
+						dir = "up";
+					}
+					l.addAttack(new Attack(l.monsters.get(i).getAttack(),dir,new Location(l.monsters.get(i).getLocation())));
+				}
+			}
+			disp.setHealth(person1.getHealth());
+			if(person1.getHealth() <= 0){
+				t.stop();
+				int n = JOptionPane.showConfirmDialog(null,"You lost! Play again?", "Game Over!",JOptionPane.YES_NO_OPTION);
+				if(n==0){
+					remove(l);
+					disp.setLevel(1);
+					l = new Level(1,width,height);
+					person1 = l.getPlayer();
+					add(l);
+					revalidate();
+					l.setFocusable(true);
+					t.restart();
+				}
+				else{
+					System.exit(ABORT);
+				}
+			}
+			else if(l.getDifficulty() == 4 & l.monsters.size() == 0){
+				t.stop();
+				int n = JOptionPane.showConfirmDialog(null,"You won! Play again?", "Game Over!",JOptionPane.YES_NO_OPTION);
+				if(n==0){
+					remove(l);
+					disp.setLevel(1);
+					l = new Level(1,width,height);
+					person1 = l.getPlayer();
+					add(l);
+					revalidate();
+					l.setFocusable(true);
+					t.restart();
+				}
+				else{
+					System.exit(ABORT);
+				}
+			}
+			repaint();
+		}
+	};
 	
 	
 	

@@ -3,7 +3,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.Stack;
 
 import javax.swing.Timer;
 
@@ -15,8 +14,10 @@ public class Monster extends Person {
 	private Hashtable<Vertex, String> mPath;
 	private Timer t;
 	private Player player;
-	private Vertex vert;
 	private boolean close;
+	private Vertex startVert;
+	private Vertex endVert;
+	private ArrayList<Vertex> locations;
 	
 	protected Monster(Path p, Vertex v, int type, int level, Player p1) {
 		super(p, v);
@@ -25,21 +26,27 @@ public class Monster extends Person {
 		Level = level;
 		close =  false;
 		vert = v;
+		startVert = v;
+		locations = new ArrayList<Vertex>();
+		locations.add(new Vertex(37,1));
+		locations.add(new Vertex(37,37));
+		locations.add(new Vertex(1,37));
+		endVert = nextVert();
 		if(level == 1){
 			setAttack(15);
-			t = new Timer(1000,monsterRefresh);
+			t = new Timer(1500,monsterRefresh);
 		}
 		if(level == 2){
 			setAttack(25);
-			t = new Timer(750,monsterRefresh);
+			t = new Timer(1250,monsterRefresh);
 		}
 		if(level == 3){
 			setAttack(40);
-			t = new Timer(700,monsterRefresh);
+			t = new Timer(1000,monsterRefresh);
 		}
 		else{
 			setAttack(50);
-			t = new Timer(500,monsterRefresh);
+			t = new Timer(750,monsterRefresh);
 		}
 		mPath = new Hashtable<Vertex, String>();
 		t.start();
@@ -66,25 +73,36 @@ public class Monster extends Person {
 		for(Iterator<Vertex> i = v.connections.iterator();i.hasNext();){
 			Vertex n = i.next();
 			if((p.getVertex().getX() == n.getX())&&(p.getVertex().getY() == n.getY())){
-				close = true;
-				System.out.println("Near player");
 				return true;
 			}
 			if(depth < 6){
 				return withinRange(p,depth+1,n);
 			}
 		}
-		close = false;
-		return false;
 		
+		return false;
 	}
 	
-	public Vertex next(Player p, Vertex v, int depth){ //monsters essentially go through map switching locations but attack player if close
+	public Vertex nextVert(){
+		
+		if(startVert.getX() == locations.get(0).getX() & startVert.getY() == locations.get(0).getY() ){
+			return locations.get(1);
+		}
+		else if(startVert.getX() == locations.get(1).getX() & startVert.getY() == locations.get(1).getY() ){
+			return locations.get(2);
+		}
+		else if(startVert.getX() == locations.get(2).getX() & startVert.getY() == locations.get(2).getY() ){
+			return locations.get(0);
+		}
+		else{
+			return null;
+		}
+	}
+	
+	public Vertex next(Vertex goal, Vertex v, int depth){ //monsters essentially go through map switching locations but attack player if close
 		mPath.put(v, "discovered");
-		if(v.getX() == p.getX() & v.getY() == p.getY()){
-			System.out.println("near player");
+		if(v.getX() == goal.getX() & v.getY() == goal.getY()){
 			mPath.clear();
-			//Level.grid.path.resetMarkers();
 			return v;
 		}
 		for(Iterator<Vertex>i = v.connections.iterator();i.hasNext();){
@@ -92,9 +110,8 @@ public class Monster extends Person {
 			
 			
 			if(mPath.containsKey(check) == false){
-				System.out.println("contains key");
 				mPath.put(check,"discovered");
-				Vertex temp = next(p,check,depth+1);
+				Vertex temp = next(goal,check,depth+1);
 				if(depth == 0 & temp != null){
 					return check;
 				}
@@ -114,7 +131,7 @@ public class Monster extends Person {
 	
 	ActionListener monsterRefresh = new ActionListener() { //movement sucks as of now
 		  public void actionPerformed(ActionEvent evt) {
-			    Vertex x = next(player,vert,0);
+			    Vertex x = next(nextVert(),vert,0);
 			    if(x != null){
 			    	int  newX = x.getX() - (int)vert.getX();
 			    	int  newY = x.getY() - (int)vert.getY();
@@ -123,6 +140,16 @@ public class Monster extends Person {
 			    	}
 			    	else {
 			    		move(loc.getX()-vert.getX(),loc.getY()-vert.getY());
+			    	}
+			    	if(withinRange(player,6,getVertex())){
+			    		close = true;
+			    	}
+			    	else{
+			    		close = false;
+			    	}
+			    	if(getVertex().getX() == endVert.getX() & getVertex().getY() == endVert.getY()){
+			    		startVert = new Vertex(endVert);
+			    		endVert = nextVert();
 			    	}
 			    }
 				
