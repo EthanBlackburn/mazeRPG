@@ -13,7 +13,6 @@ public class BackgroundIcon implements Icon{
 
 	private Graph graph;
 	private BufferedImage image;
-	private BufferedImage image2;
 	private int scaleFactor;
 	
 	public BackgroundIcon(Graph g) {

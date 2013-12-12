@@ -32,18 +32,16 @@ public class MazeBoard extends JPanel{
 	
 	private Level l;
 	private Player person1;
-	private int delay;
-	private Timer timer;
 	private int width;
 	private int height;
+	private Display disp;
 	private final Set<Integer> pressed;
 	private ArrayList<Attack> attacks;
-	private Person attacker;
 	
 	
 	public MazeBoard(int w, int h) {
 		super();
-		delay = 500; 
+		disp = new Display(1);
 		width = w;
 		height = h;
 		l = new Level(1,w,h);
@@ -53,11 +51,10 @@ public class MazeBoard extends JPanel{
 		KeyListener listener = new MyKeyListener();
 		addKeyListener(listener);
 		setFocusable(true);
-		setLayout(new GridLayout());
+		setLayout(new FlowLayout());
+		add(disp);
 		add(l);
 		l.setFocusable(true);
-		timer = new Timer(delay, monsterRefresh);
-		timer.start();
 		
 	}
 	
@@ -80,9 +77,10 @@ public class MazeBoard extends JPanel{
 			person1.move(0, 1.0);
 				if (pressed.size() > 1) {
 					if(pressed.contains(KeyEvent.VK_SPACE)){
-						attacks.add(new Attack(person1.getAttack(),"down",person1.getLocation()));
+						Location attackLoc = new Location(person1.getLocation());
+						attacks.add(new Attack(person1.getAttack(),"down",attackLoc));
 						pressed.remove(KeyEvent.VK_SPACE);
-						attacker = person1;
+						
 					}
 				}
 				//pressed.remove(KeyEvent.VK_DOWN);
@@ -92,9 +90,10 @@ public class MazeBoard extends JPanel{
 				person1.move(0, -1.0);
 				if (pressed.size() > 1) {
 		        	if(pressed.contains(KeyEvent.VK_SPACE)){
-		        		attacks.add(new Attack(person1.getAttack(),"up",person1.getLocation()));
+		        		Location attackLoc = new Location(person1.getLocation());
+		        		attacks.add(new Attack(person1.getAttack(),"up",attackLoc));
 		        		pressed.remove(KeyEvent.VK_SPACE);
-		        		attacker = person1;
+		        		
 		        	}
 		        }
 				//pressed.remove(KeyEvent.VK_UP);
@@ -105,9 +104,10 @@ public class MazeBoard extends JPanel{
 				person1.move(-1.0, 0);
 				if (pressed.size() > 1) {
 		        	if(pressed.contains(KeyEvent.VK_SPACE)){
-		        		attacks.add(new Attack(person1.getAttack(),"left",person1.getLocation()));
+		        		Location attackLoc = new Location(person1.getLocation());
+		        		attacks.add(new Attack(person1.getAttack(),"left",attackLoc));
 		        		pressed.remove(KeyEvent.VK_SPACE);
-		        		attacker = person1;
+		        		
 		        	}
 		        }
 				//pressed.remove(KeyEvent.VK_LEFT);
@@ -117,9 +117,10 @@ public class MazeBoard extends JPanel{
 				person1.move(1.0, 0);
 				if (pressed.size() > 1) {
 		        	if(pressed.contains(KeyEvent.VK_SPACE)){
-		        		attacks.add(new Attack(person1.getAttack(),"right",person1.getLocation()));
+		        		Location attackLoc = new Location(person1.getLocation());
+		        		attacks.add(new Attack(person1.getAttack(),"right",attackLoc));
 		        		pressed.remove(KeyEvent.VK_SPACE);
-		        		attacker = person1;
+		        		
 		        	}
 		        }
 				l.addAttacks(attacks);
@@ -133,13 +134,12 @@ public class MazeBoard extends JPanel{
 					//either make fifth level with trophy or popup window
 				}
 				l = new Level(diff,width,height);
+				disp.setLevel(diff);
 				person1 = l.getPlayer();
 				attacks = new ArrayList<Attack>();
 				add(l);
 				revalidate();
 				l.setFocusable(true);
-				timer = new Timer(delay, monsterRefresh);
-				timer.start();
 				repaint();
 			}
 		}
@@ -151,23 +151,6 @@ public class MazeBoard extends JPanel{
 			}
 		}
 	}
-		
-	
-	ActionListener monsterRefresh = new ActionListener() { //movement sucks as of now
-		  public void actionPerformed(ActionEvent evt) {
-			  ArrayList<Attack> collided = new ArrayList<Attack>();
-		      for(int i = 0; i < l.monsters.size(); i++){
-				Vertex x = l.monsters.get(i).next(person1);
-				collided.addAll(l.DetectCollision(attacks));
-				int  newX = x.getX() - (int)l.monsters.get(i).getX();
-				int  newY = x.getY() - (int)l.monsters.get(i).getY();
-				l.monsters.get(i).move(newX,newY);
-				repaint();
-				
-			  }
-		      attacks.removeAll(collided);
-		  }
-		};
 	
 	
 	

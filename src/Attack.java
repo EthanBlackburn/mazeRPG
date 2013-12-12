@@ -11,11 +11,14 @@ public class Attack{
 	private String direction;
 	private Location loc;
 	private Timer t;
+	private Vertex vert;
 	public Attack(int s,String d, Location l){
 		direction = d;
 		strength = s;
 		loc = l;
+		vert = new Vertex(loc);
 		t = new Timer(500,attackListener);
+		t.start();
 		
 	}
 	
@@ -30,6 +33,10 @@ public class Attack{
 	
 	public Location getLocation(){
 		return loc;
+	}
+	
+	public Vertex getVertex(){
+		return vert;
 	}
 	
 	public String getDirection(){
