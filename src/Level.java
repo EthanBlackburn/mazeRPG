@@ -76,6 +76,8 @@ public class Level extends JPanel{
 		LOOP:for(int i = 0; i < attacks.size(); i++){
 			for(int k = 0; k < monsters.size();k++){
 				if(grid.getVertex2(attacks.get(i).getVertex().getX(), attacks.get(i).getVertex().getY()) != null ){
+					System.out.println(attacks.get(i).getLocation().getX());
+					System.out.println(attacks.get(i).getLocation().getY());
 					collisions.add(attacks.get(i));
 					break LOOP;
 				}
@@ -102,6 +104,11 @@ public class Level extends JPanel{
 	ActionListener listener = new ActionListener(){
 		public void actionPerformed(ActionEvent evt){
 			DetectCollision(GI.getAttacks());
+			for(int i = 0; i < monsters.size();i++){
+				if(monsters.get(i).isClose()){
+					addAttack(new Attack(monsters.get(i).getAttack(),monsters.get(i).getDirection(),monsters.get(i).getLocation()));
+				}
+			}
 			repaint();
 		}
 	};

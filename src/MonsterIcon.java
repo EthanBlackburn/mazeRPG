@@ -61,14 +61,12 @@ public class MonsterIcon implements Icon{
 			break;
 		}
 		
-		System.out.println(file);
 		url = getClass().getResource(file);
 		try {
-			System.out.println(url);
 	         monster = ImageIO.read(url);
 	         
 	    } catch (IOException ex) {
-	           System.out.println("couldnt load player image");
+	           System.out.println("couldnt load monster image");
 	    }
 	}
 	@Override

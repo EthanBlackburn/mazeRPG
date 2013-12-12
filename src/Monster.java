@@ -57,12 +57,17 @@ public class Monster extends Person {
 	public Vertex getVertex(){
 		return vert;
 	}
+	
+	public boolean isClose(){
+		return close;
+	}
 
 	public boolean withinRange(Player p, int depth,Vertex v){
-		for(Iterator<Vertex> i = v.adjacentVertices(this).iterator();i.hasNext();){
+		for(Iterator<Vertex> i = v.connections.iterator();i.hasNext();){
 			Vertex n = i.next();
 			if((p.getVertex().getX() == n.getX())&&(p.getVertex().getY() == n.getY())){
 				close = true;
+				System.out.println("Near player");
 				return true;
 			}
 			if(depth < 6){
@@ -74,22 +79,20 @@ public class Monster extends Person {
 		
 	}
 	
-	public Vertex next(Player p, Vertex z){ //monsters essentially go through map switching locations but attack player if close
-		Vertex v = z;
+	public Vertex next(Player p, Vertex v){ //monsters essentially go through map switching locations but attack player if close
 		mPath.put(v, "discovered");
-		Stack<Vertex> locations = new Stack<Vertex>();
-		for(Iterator<Vertex>i = v.adjacentVertices(this).iterator();i.hasNext();){
+		for(Iterator<Vertex>i = v.connections.iterator();i.hasNext();){
+			Vertex check = i.next();
 			
-			Vertex check = locations.peek();
-			
-			if(withinRange(p,0,check)){
+			if(check.getX() == p.getX() & check.getY() == p.getY()){
 				System.out.println("near player");
 				mPath.clear();
 				return check;
 			}
 			else if(mPath.containsKey(check) == false){
+				System.out.println("contains key");
 				mPath.put(check,"discovered");
-				next(p,check);
+				return next(p,check);
 					
 			}
 			
@@ -99,12 +102,15 @@ public class Monster extends Person {
 		return null;
 		
 	}
+	
 	ActionListener monsterRefresh = new ActionListener() { //movement sucks as of now
 		  public void actionPerformed(ActionEvent evt) {
 			    Vertex x = next(player,vert);
-				int  newX = x.getX() - (int)vert.getX();
-				int  newY = x.getY() - (int)vert.getY();
-				move(newX,newY);
+			    if(x != null){
+			    	int  newX = x.getX() - (int)vert.getX();
+			    	int  newY = x.getY() - (int)vert.getY();
+			    	move(newX,newY);
+			    }
 				
 			  }
 		};
