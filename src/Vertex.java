@@ -132,23 +132,7 @@ public class Vertex {
 		return new Line2D.Double(toPoint(modif, x, y), vert.toPoint(modif,x,y));
 	}
 	
-	public ArrayList<Vertex> adjacentVertices(Person p){
-		ArrayList<Vertex> moves = new ArrayList<Vertex>();
-		if(p.isValidMove(1.0, 0)){
-			moves.add(new Vertex(p.getVertex().getX()+1,p.getVertex().getY()));
-		}
-		if(p.isValidMove(-1.0, 0)){
-			moves.add(new Vertex(p.getVertex().getX()-1,p.getVertex().getY()));
-		}
-		if(p.isValidMove(0, 1.0)){
-			moves.add(new Vertex(p.getVertex().getX(),p.getVertex().getY()+1));
-		}
-		if(p.isValidMove(0, -1.0)){
-			moves.add(new Vertex(p.getVertex().getX(),p.getVertex().getY()-1));
-		}
-		
-		return moves;
-	}
+	
 	
 	
 }
