@@ -124,6 +124,9 @@ public class MazeBoard extends JPanel{
 				
 				repaint();			
 			}
+			else{
+				pressed.clear();
+			}
 			
 			if((person1.getVertex().getX() == 37) && (person1.getVertex().getY() == 37)){ //if player is on stairs then go to next level
 				int diff = l.getDifficulty()+1;

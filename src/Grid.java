@@ -138,6 +138,8 @@ public class Grid {
 		
 		//add the desired path connection
 		path.getVertex(x, y).addConnection(path.getVertex(a, b));
+		
+		//path.getVertex(a, b).addConnection(newVert);
 		//if y==b then the path vertices in question are horizontal to each other
 		if(y == b){
 			int m = x;

@@ -79,20 +79,29 @@ public class Monster extends Person {
 		
 	}
 	
-	public Vertex next(Player p, Vertex v){ //monsters essentially go through map switching locations but attack player if close
+	public Vertex next(Player p, Vertex v, int depth){ //monsters essentially go through map switching locations but attack player if close
 		mPath.put(v, "discovered");
+		if(v.getX() == p.getX() & v.getY() == p.getY()){
+			System.out.println("near player");
+			mPath.clear();
+			//Level.grid.path.resetMarkers();
+			return v;
+		}
 		for(Iterator<Vertex>i = v.connections.iterator();i.hasNext();){
 			Vertex check = i.next();
 			
-			if(check.getX() == p.getX() & check.getY() == p.getY()){
-				System.out.println("near player");
-				mPath.clear();
-				return check;
-			}
-			else if(mPath.containsKey(check) == false){
+			
+			if(mPath.containsKey(check) == false){
 				System.out.println("contains key");
 				mPath.put(check,"discovered");
-				return next(p,check);
+				Vertex temp = next(p,check,depth+1);
+				if(depth == 0 & temp != null){
+					return check;
+				}
+				else if (temp != null){
+					return temp;
+				}
+				
 					
 			}
 			
@@ -105,11 +114,16 @@ public class Monster extends Person {
 	
 	ActionListener monsterRefresh = new ActionListener() { //movement sucks as of now
 		  public void actionPerformed(ActionEvent evt) {
-			    Vertex x = next(player,vert);
+			    Vertex x = next(player,vert,0);
 			    if(x != null){
 			    	int  newX = x.getX() - (int)vert.getX();
 			    	int  newY = x.getY() - (int)vert.getY();
-			    	move(newX,newY);
+			    	if(isValidMove(newX,newY)){
+			    		move(newX,newY);
+			    	}
+			    	else {
+			    		move(loc.getX()-vert.getX(),loc.getY()-vert.getY());
+			    	}
 			    }
 				
 			  }
