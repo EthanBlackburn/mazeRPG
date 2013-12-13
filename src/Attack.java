@@ -12,24 +12,11 @@ public class Attack{
 	private Location loc;
 	private Timer t;
 	private Vertex vert;
-	private int Type;
 	
-	public Attack(int s,String d, Location l, int type){
+	public Attack(int s,String d, Location l){
 		direction = d;
 		strength = s;
 		loc = l;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-		Type = type;
-=======
-=======
->>>>>>> df073f836643c24963154643eeaf4db6492c972a
-=======
->>>>>>> df073f836643c24963154643eeaf4db6492c972a
-=======
->>>>>>> df073f836643c24963154643eeaf4db6492c972a
 		int tempy = loc.getY();
 		int tempx = loc.getX();
 		if(direction == "up"){
@@ -46,16 +33,6 @@ public class Attack{
 		}
 		
 		loc.setLocation(tempx, tempy);
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> df073f836643c24963154643eeaf4db6492c972a
-=======
->>>>>>> df073f836643c24963154643eeaf4db6492c972a
-=======
->>>>>>> df073f836643c24963154643eeaf4db6492c972a
-=======
->>>>>>> df073f836643c24963154643eeaf4db6492c972a
 		vert = new Vertex(loc);
 		t = new Timer(500,attackListener);
 		t.start();
@@ -83,9 +60,6 @@ public class Attack{
 		return direction;
 	}
 	
-	public int getType(){
-		return Type;
-	}
 
 	ActionListener attackListener = new ActionListener(){
 		public void actionPerformed(ActionEvent evt){
