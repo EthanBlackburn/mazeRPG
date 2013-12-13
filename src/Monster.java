@@ -75,8 +75,11 @@ public class Monster extends Person {
 			if((p.getVertex().getX() == n.getX())&&(p.getVertex().getY() == n.getY())){
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				close = true;
 				System.out.println("Near player");
+=======
+>>>>>>> df073f836643c24963154643eeaf4db6492c972a
 =======
 >>>>>>> df073f836643c24963154643eeaf4db6492c972a
 =======
@@ -87,6 +90,7 @@ public class Monster extends Person {
 				return withinRange(p,depth+1,n);
 			}
 		}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 		return false;
@@ -169,6 +173,38 @@ public class Monster extends Person {
 			
 			
 >>>>>>> df073f836643c24963154643eeaf4db6492c972a
+=======
+		
+		return false;
+	}
+	
+	public Vertex nextVert(){
+		
+		if(startVert.getX() == locations.get(0).getX() & startVert.getY() == locations.get(0).getY() ){
+			return locations.get(1);
+		}
+		else if(startVert.getX() == locations.get(1).getX() & startVert.getY() == locations.get(1).getY() ){
+			return locations.get(2);
+		}
+		else if(startVert.getX() == locations.get(2).getX() & startVert.getY() == locations.get(2).getY() ){
+			return locations.get(0);
+		}
+		else{
+			return null;
+		}
+	}
+	
+	public Vertex next(Vertex goal, Vertex v, int depth){ //monsters essentially go through map switching locations but attack player if close
+		mPath.put(v, "discovered");
+		if(v.getX() == goal.getX() & v.getY() == goal.getY()){
+			mPath.clear();
+			return v;
+		}
+		for(Iterator<Vertex>i = v.connections.iterator();i.hasNext();){
+			Vertex check = i.next();
+			
+			
+>>>>>>> df073f836643c24963154643eeaf4db6492c972a
 			if(mPath.containsKey(check) == false){
 				mPath.put(check,"discovered");
 				Vertex temp = next(goal,check,depth+1);
@@ -180,6 +216,9 @@ public class Monster extends Person {
 				}
 				
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> df073f836643c24963154643eeaf4db6492c972a
+=======
 >>>>>>> df073f836643c24963154643eeaf4db6492c972a
 =======
 >>>>>>> df073f836643c24963154643eeaf4db6492c972a
@@ -194,6 +233,7 @@ public class Monster extends Person {
 		  public void actionPerformed(ActionEvent evt) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			  	path.resetMarkers();
 			    Vertex x = next(player,vert);
 			    if(x!= null){
@@ -201,6 +241,8 @@ public class Monster extends Person {
 					int  newY = (x.getY() - (int)vert.getY())/2;
 					move(newX,newY);				
 =======
+=======
+>>>>>>> df073f836643c24963154643eeaf4db6492c972a
 =======
 >>>>>>> df073f836643c24963154643eeaf4db6492c972a
 			    Vertex x = next(nextVert(),vert,0);

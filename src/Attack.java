@@ -20,8 +20,11 @@ public class Attack{
 		loc = l;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		Type = type;
 =======
+=======
+>>>>>>> df073f836643c24963154643eeaf4db6492c972a
 =======
 >>>>>>> df073f836643c24963154643eeaf4db6492c972a
 		int tempy = loc.getY();
@@ -41,6 +44,9 @@ public class Attack{
 		
 		loc.setLocation(tempx, tempy);
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> df073f836643c24963154643eeaf4db6492c972a
+=======
 >>>>>>> df073f836643c24963154643eeaf4db6492c972a
 =======
 >>>>>>> df073f836643c24963154643eeaf4db6492c972a
