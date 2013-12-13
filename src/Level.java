@@ -75,16 +75,12 @@ public class Level extends JPanel{
 		
 		LOOP:for(int i = 0; i < attacks.size(); i++){
 			for(int k = 0; k < monsters.size();k++){
-<<<<<<< HEAD
 				System.out.println(attacks.get(i).getLocation().getX());
 				System.out.println(attacks.get(i).getLocation().getY());
 				if(grid.getVertex2(attacks.get(i).getVertex().getX()/2, attacks.get(i).getVertex().getY()/2) != null ){
-					
-=======
 				if(grid.getVertex2(attacks.get(i).getVertex().getX(), attacks.get(i).getVertex().getY()) != null ){
 					System.out.println(attacks.get(i).getLocation().getX());
 					System.out.println(attacks.get(i).getLocation().getY());
->>>>>>> ceec8a7b3bcd7c2f5aea090cf92c51a6938c6136
 					collisions.add(attacks.get(i));
 					break LOOP;
 				}
@@ -116,13 +112,10 @@ public class Level extends JPanel{
 			}
 			DetectCollision(GI.getAttacks());
 			for(int i = 0; i < monsters.size();i++){
-<<<<<<< HEAD
 				if(monsters.get(i).withinRange(person1,4)){
 					addAttack(new Attack(monsters.get(i).getAttack(),monsters.get(i).getDirection(),monsters.get(i).getLocation(),1));
-=======
 				if(monsters.get(i).isClose()){
 					addAttack(new Attack(monsters.get(i).getAttack(),monsters.get(i).getDirection(),monsters.get(i).getLocation()));
->>>>>>> ceec8a7b3bcd7c2f5aea090cf92c51a6938c6136
 				}
 			}
 			repaint();

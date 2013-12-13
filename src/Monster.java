@@ -61,14 +61,6 @@ public class Monster extends Person {
 		return close;
 	}
 
-<<<<<<< HEAD
-	public boolean withinRange(Player p, int depth){
-		if(p.getLocation().dist(loc)<depth) {
-			return true;
-		}
-		else {
-			return false;
-=======
 	public boolean withinRange(Player p, int depth,Vertex v){
 		for(Iterator<Vertex> i = v.connections.iterator();i.hasNext();){
 			Vertex n = i.next();
@@ -80,27 +72,10 @@ public class Monster extends Person {
 			if(depth < 6){
 				return withinRange(p,depth+1,n);
 			}
->>>>>>> ceec8a7b3bcd7c2f5aea090cf92c51a6938c6136
 		}
+		return false;
 	}
-	
-<<<<<<< HEAD
-	public Vertex next(Player p, Vertex v, int depth){ //monsters essentially go through map switching locations but attack player if close
-		v.setInPath();
-		if(v.getX() == p.getX() & v.getY() == p.getY()){
-			path.resetMarkers();
-			return v;
-		}
-		else {
-			for(int i = 0; i<v.connections.size(); i++){
-				if(!v.connections.get(i).inPath()){
-					Vertex temp = next(p,v.connections.get(i), depth +1);
-					if(temp != null){
-						return v.connections.get(i);
-					}
-				}
 			
-=======
 	public Vertex next(Player p, Vertex v){ //monsters essentially go through map switching locations but attack player if close
 		mPath.put(v, "discovered");
 		for(Iterator<Vertex>i = v.connections.iterator();i.hasNext();){
@@ -116,7 +91,6 @@ public class Monster extends Person {
 				mPath.put(check,"discovered");
 				return next(p,check);
 					
->>>>>>> ceec8a7b3bcd7c2f5aea090cf92c51a6938c6136
 			}
 		}
 		return null;
@@ -125,22 +99,13 @@ public class Monster extends Person {
 	
 	ActionListener monsterRefresh = new ActionListener() { //movement sucks as of now
 		  public void actionPerformed(ActionEvent evt) {
-<<<<<<< HEAD
 			  	path.resetMarkers();
-			    Vertex x = next(player,vert,0);
+			    Vertex x = next(player,vert);
 			    if(x!= null){
 					int  newX = (x.getX() - (int)vert.getX())/2;
 					int  newY = (x.getY() - (int)vert.getY())/2;
-					move(newX,newY);
-=======
-			    Vertex x = next(player,vert);
-			    if(x != null){
-			    	int  newX = x.getX() - (int)vert.getX();
-			    	int  newY = x.getY() - (int)vert.getY();
-			    	move(newX,newY);
->>>>>>> ceec8a7b3bcd7c2f5aea090cf92c51a6938c6136
-			    }
-				
+					move(newX,newY);				
 			  }
-		};
+		}
+	};
 }
