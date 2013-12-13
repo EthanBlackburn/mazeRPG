@@ -19,8 +19,11 @@ public class Attack{
 		strength = s;
 		loc = l;
 <<<<<<< HEAD
+<<<<<<< HEAD
 		Type = type;
 =======
+=======
+>>>>>>> df073f836643c24963154643eeaf4db6492c972a
 		int tempy = loc.getY();
 		int tempx = loc.getX();
 		if(direction == "up"){
@@ -37,6 +40,9 @@ public class Attack{
 		}
 		
 		loc.setLocation(tempx, tempy);
+<<<<<<< HEAD
+>>>>>>> df073f836643c24963154643eeaf4db6492c972a
+=======
 >>>>>>> df073f836643c24963154643eeaf4db6492c972a
 		vert = new Vertex(loc);
 		t = new Timer(500,attackListener);
