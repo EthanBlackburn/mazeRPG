@@ -16,7 +16,6 @@ public abstract class Person{
 	protected Path path;
 	protected int maxHealth;
 	private int health;
-	private boolean isAlive;
 	protected int attack;
 	private BufferedImage image;
 	private String Direction;
@@ -27,7 +26,6 @@ public abstract class Person{
 		loc = new Location(v.getX(), v.getY());
 		maxHealth = 100;
 		health = 100;
-		isAlive = true;
 		path = p;
 	}
 	public void setDirection(String s){
@@ -69,30 +67,6 @@ public abstract class Person{
 	
 	public void setAttack(int a){
 		attack = a;
-	}
-	
-	public void Attack(String s){
-		URL url;
-		if(s =="up"){
-			url = getClass().getResource("/resources/attacks/blast_up.png");
-		}
-		else if(s =="down"){
-			url = getClass().getResource("/resources/attacks/blast_down.png");
-		}
-		else if(s =="left"){
-			url = getClass().getResource("/resources/attacks/blast_left.png");
-		}
-		else{
-			url = getClass().getResource("/resources/attacks/blast_right.png");
-		}
-		
-		
-		try {                
-	         image = ImageIO.read(url);
-	    } catch (IOException ex) {
-	           System.out.println("couldnt load blast image");
-	    }
-		
 	}
 	
 	//increment the current health

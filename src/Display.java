@@ -12,21 +12,26 @@ public class Display extends JPanel {
 	private static final long serialVersionUID = 4347982897832715628L;
 	private int level;
 	private int health;
+	private JLabel healthLabel;
+	private JLabel levelLabel;
 	public Display(int l){
 		level = l;
 		health = 200;
-		JLabel healthLabel = new JLabel("Health: " + health);
-		JLabel levelLabel = new JLabel("Level: " + level);
+		healthLabel = new JLabel("Health: " + health);
+		levelLabel = new JLabel("Level: " + level);
 		setLayout(new FlowLayout());
 		add(healthLabel);
 		add(levelLabel);
 	}
 	
-	public void decrementHealth(int dec){
-		health -= dec;
+	public void setHealth(int h){
+		health =h;
+		healthLabel.setText("Health: " + health);
 	}
 	
 	public void setLevel(int l){
 		level = l;
+		levelLabel.setText("Level: " + level);
 	}
+
 }
