@@ -1,5 +1,6 @@
 import java.awt.FlowLayout;
 
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -19,7 +20,7 @@ public class Display extends JPanel {
 		health = 200;
 		healthLabel = new JLabel("Health: " + health);
 		levelLabel = new JLabel("Level: " + level);
-		setLayout(new FlowLayout());
+		setLayout(new BoxLayout(this,1));
 		add(healthLabel);
 		add(levelLabel);
 	}

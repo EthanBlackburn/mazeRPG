@@ -11,6 +11,7 @@ public class GameIcon implements Icon{
 	private int height;
 	private int width;
 	private Player play;
+	private int difficulty;
 	private ArrayList<Monster> monsters;
 	private ArrayList<Attack> attacks;
 	
@@ -28,6 +29,12 @@ public class GameIcon implements Icon{
 		}
 		play = p;
 		monsters = m;
+		if(monsters.size() ==1){
+			difficulty = 4;
+		}
+		else {
+			difficulty = 1;
+		}
 	}
 	
 	@Override
@@ -88,7 +95,7 @@ public class GameIcon implements Icon{
 			MonsterIcon monster = new MonsterIcon(monsters.get(i));
 			monster.paintIcon(arg0, g2, 17*(int)((monsters.get(i)).getX()-1), 17*(int)((monsters.get(i)).getY()-1));
 		}
-		if(monsters.size() > 1){
+		if(difficulty<4){
 			StairsIcon stairs = new StairsIcon();
 			stairs.paintIcon(arg0, g2, 0, 0);
 		}

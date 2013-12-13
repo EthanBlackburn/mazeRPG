@@ -23,6 +23,8 @@ public class Wall extends Graph{
 				graph[i][j] = new Vertex(2*i,2*j);
 			}
 		}
+		//initially make every vertex connected to every adjacent vertex in the wall (this is before
+		//we make the maze).
 		for(int i = 0; i< w +1; i++) {
 			for(int j = 0; j<h +1; j++){
 					if(j<h)

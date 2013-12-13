@@ -45,4 +45,8 @@ public class Location{
 	public double dist(Location loc1) {
 		return Math.sqrt(Math.pow((loc1.getX() - this.getX()),2) + Math.pow((loc1.getY() - this.getY()),2));
 	}
+	
+	public void printLocation() {
+		System.out.println("x,y = " + x + " " + y);
+	}
 }

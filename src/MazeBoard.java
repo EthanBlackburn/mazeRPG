@@ -20,7 +20,9 @@ public class MazeBoard extends JPanel{
 	private int width;
 	private int height;
 	private Display disp;
+	private int delay[];
 	private Timer t;
+	private Timer s;
 	private final Set<Integer> pressed;
 	
 	
@@ -29,6 +31,10 @@ public class MazeBoard extends JPanel{
 		disp = new Display(1);
 		width = w;
 		height = h;
+		delay = new int[3];
+		for(int i = 0; i<3; i++){
+			delay[i] = 0;
+		}
 		l = new Level(1,w,h);
 		
 		pressed = new HashSet<Integer>();
@@ -40,8 +46,10 @@ public class MazeBoard extends JPanel{
 		add(disp);
 		add(l);
 		l.setFocusable(true);
-		t = new Timer(200,Alistener);
+		t = new Timer(100,Alistener);
+		s = new Timer(100,Mlistener);
 		t.start();
+		s.start();
 		
 	}
 	
@@ -59,113 +67,154 @@ public class MazeBoard extends JPanel{
 
 		@Override
 		public synchronized void keyPressed(KeyEvent e) {
-			pressed.add(e.getKeyCode());
-			if(pressed.contains(KeyEvent.VK_DOWN)){
-			person1.move(0, 1.0);
-				if (pressed.size() > 1) {
-					if(pressed.contains(KeyEvent.VK_SPACE)){
-						Location attackLoc = new Location(person1.getLocation());
-						l.addAttack(new Attack(person1.getAttack(),"down",attackLoc));
-						pressed.remove(KeyEvent.VK_SPACE);
-						
-					}
+			int temp = e.getKeyCode();
+			boolean shoot = pressed.contains(KeyEvent.VK_SPACE);
+			if(temp == KeyEvent.VK_DOWN){
+				if(shoot) {
+					Location attackLoc = new Location(person1.getLocation());
+	        		l.addAttack(new Attack(person1.getAttack(),"down",attackLoc,0));
 				}
-				//pressed.remove(KeyEvent.VK_DOWN);
+				else {
+					person1.move(0, 1);
+				}
 				repaint();
 			}
-			else if(pressed.contains(KeyEvent.VK_UP)){
-				person1.move(0, -1.0);
-				if (pressed.size() > 1) {
-		        	if(pressed.contains(KeyEvent.VK_SPACE)){
-		        		Location attackLoc = new Location(person1.getLocation());
-		        		l.addAttack(new Attack(person1.getAttack(),"up",attackLoc));
-		        		pressed.remove(KeyEvent.VK_SPACE);
-		        		
-		        	}
-		        }
-				//pressed.remove(KeyEvent.VK_UP);
+			else if((temp == KeyEvent.VK_UP)){
+				if(shoot) {
+					Location attackLoc = new Location(person1.getLocation());
+	        		l.addAttack(new Attack(person1.getAttack(),"up",attackLoc,0));
+				}
+				else {
+					person1.move(0, -1);
+				}
 				repaint();
 			}
 			
-			else if(pressed.contains(KeyEvent.VK_LEFT)){
-				person1.move(-1.0, 0);
-				if (pressed.size() > 1) {
-		        	if(pressed.contains(KeyEvent.VK_SPACE)){
-		        		Location attackLoc = new Location(person1.getLocation());
-		        		l.addAttack(new Attack(person1.getAttack(),"left",attackLoc));
-		        		pressed.remove(KeyEvent.VK_SPACE);
-		        		
-		        	}
-		        }
-				//pressed.remove(KeyEvent.VK_LEFT);
+			else if((temp == KeyEvent.VK_LEFT)){
+				if(shoot) {
+					Location attackLoc = new Location(person1.getLocation());
+	        		l.addAttack(new Attack(person1.getAttack(),"left",attackLoc,0));
+				}
+				else {
+					person1.move(-1, 0);
+				}
 				repaint();
 			}
-			else if(pressed.contains(KeyEvent.VK_RIGHT)){
-				person1.move(1.0, 0);
-				if (pressed.size() > 1) {
-		        	if(pressed.contains(KeyEvent.VK_SPACE)){
-		        		Location attackLoc = new Location(person1.getLocation());
-		        		l.addAttack(new Attack(person1.getAttack(),"right",attackLoc));
-		        		pressed.remove(KeyEvent.VK_SPACE);
-		        		
-		        	}
-		        }
-				
+			else if((temp == KeyEvent.VK_RIGHT)){
+				if(shoot) {
+					Location attackLoc = new Location(person1.getLocation());
+	        		l.addAttack(new Attack(person1.getAttack(),"right",attackLoc,0));
+				}
+				else {
+					person1.move(1,0);
+				}
 				repaint();			
 			}
+			else if(temp == KeyEvent.VK_SPACE){
+				pressed.add(temp);
+			}
+			else if(temp == KeyEvent.VK_W){
+				Location attackLoc = new Location(person1.getLocation());
+        		l.addAttack(new Attack(person1.getAttack(),"up",attackLoc,0));
+        		repaint();
+			}
+			else if(temp == KeyEvent.VK_A){
+				Location attackLoc = new Location(person1.getLocation());
+        		l.addAttack(new Attack(person1.getAttack(),"left",attackLoc,0));
+        		repaint();
+			}
+			else if(temp == KeyEvent.VK_S){
+				Location attackLoc = new Location(person1.getLocation());
+        		l.addAttack(new Attack(person1.getAttack(),"down",attackLoc,0));
+        		repaint();
+			}
+			else if(temp == KeyEvent.VK_D){
+				Location attackLoc = new Location(person1.getLocation());
+        		l.addAttack(new Attack(person1.getAttack(),"right",attackLoc,0));
+        		repaint();
+			}
+			
 			else{
 				pressed.clear();
 			}
 			
-			if((person1.getVertex().getX() == 37) && (person1.getVertex().getY() == 37) & l.getDifficulty() < 4){ //if player is on stairs then go to next level
-				int diff = l.getDifficulty()+1;
-				remove(l);
+			if((((person1.getVertex().getX() == 37) && (person1.getVertex().getY() == 37)) | l.monsters.size() == 0) & l.getDifficulty() < 4){ //if player is on stairs or size of monsters is 0 then go to next level
 				t.stop();
-				disp.setLevel(diff);
-				l = new Level(diff,width,height);
-				person1 = l.getPlayer();
-				add(l);
-				revalidate();
-				l.setFocusable(true);
-				repaint();
-				t.restart();
+				s.stop();
+				String difficulty[] = {"first","second","third"};
+				int n = JOptionPane.showConfirmDialog(null,"You Beat the " + difficulty[l.getDifficulty()-1]+" Level! continue?", "Game Over!",JOptionPane.YES_NO_OPTION);
+				if(n==0){
+					int diff = l.getDifficulty()+1;
+					remove(l);
+					t.stop();
+					disp.setLevel(diff);
+					l = new Level(diff,width,height);
+					person1 = l.getPlayer();
+					add(l);
+					revalidate();
+					l.setFocusable(true);
+					repaint();
+					pressed.clear();
+					t.restart();
+					s.restart();
+				}
+				else{
+					System.exit(ABORT);
+				}
+				
 			}
 		}
 
 		@Override
 		public void keyReleased(KeyEvent e) {
-			if(e.getKeyCode() != KeyEvent.VK_SPACE){
-				pressed.remove(e.getKeyCode());
-			}
+			pressed.remove(e.getKeyCode());
 		}
 		
 		
 	}
 	
+	ActionListener Mlistener = new ActionListener(){
+		public void actionPerformed(ActionEvent evt){
+			for(int i = 0; i<3; i++){
+				if(delay[i]<500){
+					delay[i]+=100;
+				}
+			}
+		}
+	};
+	
 	ActionListener Alistener = new ActionListener(){
 		public void actionPerformed(ActionEvent evt){
+			
 			l.DetectCollision(l.getGI().getAttacks());
 			for(int i = 0; i < l.monsters.size();i++){
-				if(l.monsters.get(i).isClose()){
+				if(l.monsters.get(i).isClose() & delay[i]>=500){
+					System.out.println("----");
 					String dir;
-					if(person1.getVertex().getY() == l.monsters.get(i).getY() & person1.getVertex().getX() >= l.monsters.get(i).getX()){
-						dir = "right";
-					}
-					else if(person1.getVertex().getY() == l.monsters.get(i).getY() & person1.getVertex().getX() < l.monsters.get(i).getX()){
-						dir = "left";
-					}
-					else if(person1.getVertex().getX() == l.monsters.get(i).getX() & person1.getVertex().getY() >= l.monsters.get(i).getY()){
+					int diffx = person1.getX() - l.monsters.get(i).getX();
+					int diffy = person1.getY() - l.monsters.get(i).getY();
+					int absx = Math.abs(diffx);
+					int absy = Math.abs(diffy);
+					if(absy > absx) {
 						dir = "down";
+						if(diffy<0) {
+							dir = "up";
+						}
 					}
 					else {
-						dir = "up";
+						dir = "right";
+						if(diffx<0) {
+							dir = "left";
+						}
 					}
-					l.addAttack(new Attack(l.monsters.get(i).getAttack(),dir, new Location( l.monsters.get(i).getLocation() ) ) );
+					l.addAttack(new Attack(l.monsters.get(i).getAttack(),dir, new Location( l.monsters.get(i).getLocation() ),1 ) );
+					delay[i] = 0;
 				}
 			}
 			disp.setHealth(person1.getHealth());
 			if(person1.getHealth() <= 0){
 				t.stop();
+				s.stop();
 				int n = JOptionPane.showConfirmDialog(null,"You lost! Play again?", "Game Over!",JOptionPane.YES_NO_OPTION);
 				if(n==0){
 					remove(l);
@@ -176,6 +225,7 @@ public class MazeBoard extends JPanel{
 					revalidate();
 					l.setFocusable(true);
 					t.restart();
+					s.restart();
 				}
 				else{
 					System.exit(ABORT);
@@ -183,6 +233,7 @@ public class MazeBoard extends JPanel{
 			}
 			else if(l.getDifficulty() == 4 & l.monsters.size() == 0){
 				t.stop();
+				s.stop();
 				int n = JOptionPane.showConfirmDialog(null,"You won! Play again?", "Game Over!",JOptionPane.YES_NO_OPTION);
 				if(n==0){
 					remove(l);
@@ -193,6 +244,7 @@ public class MazeBoard extends JPanel{
 					revalidate();
 					l.setFocusable(true);
 					t.restart();
+					s.restart();
 				}
 				else{
 					System.exit(ABORT);
