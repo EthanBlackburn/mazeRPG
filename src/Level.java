@@ -12,7 +12,7 @@ public class Level extends JPanel{
 
 	private Player person1;
 	
-	private Grid grid;
+	protected Grid grid;
 	private IconAdapter player;
 	private IconAdapter walls;
 	protected ArrayList<Monster> monsters;
@@ -75,11 +75,15 @@ public class Level extends JPanel{
 		
 		LOOP:for(int i = 0; i < attacks.size(); i++){
 			for(int k = 0; k < monsters.size();k++){
-				if(grid.getVertex2(attacks.get(i).getVertex().getX(), attacks.get(i).getVertex().getY()) != null ){
+				System.out.println(attacks.get(i).getLocation().getX());
+				System.out.println(attacks.get(i).getLocation().getY());
+				if(grid.getVertex2(attacks.get(i).getVertex().getX()/2, attacks.get(i).getVertex().getY()/2) != null ){
+					
 					collisions.add(attacks.get(i));
 					break LOOP;
 				}
-				else if(monsters.get(k).getLocation() == attacks.get(i).getLocation()){
+				else if(monsters.get(k).getLocation() == attacks.get(i).getLocation() & attacks.get(i).getType() != 1){
+					System.out.println("attack type = " + attacks.get(i).getType());
 					
 					monsters.get(k).incrementHealth(-attacks.get(i).getStrength());
 					collisions.add(attacks.get(i));
@@ -101,7 +105,15 @@ public class Level extends JPanel{
 	}
 	ActionListener listener = new ActionListener(){
 		public void actionPerformed(ActionEvent evt){
+			if(GI == null) {
+				return;
+			}
 			DetectCollision(GI.getAttacks());
+			for(int i = 0; i < monsters.size();i++){
+				if(monsters.get(i).withinRange(person1,4)){
+					addAttack(new Attack(monsters.get(i).getAttack(),monsters.get(i).getDirection(),monsters.get(i).getLocation(),1));
+				}
+			}
 			repaint();
 		}
 	};

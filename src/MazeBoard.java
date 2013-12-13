@@ -3,6 +3,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -76,7 +77,7 @@ public class MazeBoard extends JPanel{
 				if (pressed.size() > 1) {
 					if(pressed.contains(KeyEvent.VK_SPACE)){
 						Location attackLoc = new Location(person1.getLocation());
-						l.addAttack(new Attack(person1.getAttack(),"down",attackLoc));
+						l.addAttack(new Attack(person1.getAttack(),"down",attackLoc, 0));
 						pressed.remove(KeyEvent.VK_SPACE);
 						
 					}
@@ -89,7 +90,7 @@ public class MazeBoard extends JPanel{
 				if (pressed.size() > 1) {
 		        	if(pressed.contains(KeyEvent.VK_SPACE)){
 		        		Location attackLoc = new Location(person1.getLocation());
-		        		l.addAttack(new Attack(person1.getAttack(),"up",attackLoc));
+		        		l.addAttack(new Attack(person1.getAttack(),"up",attackLoc, 0));
 		        		pressed.remove(KeyEvent.VK_SPACE);
 		        		
 		        	}
@@ -103,7 +104,7 @@ public class MazeBoard extends JPanel{
 				if (pressed.size() > 1) {
 		        	if(pressed.contains(KeyEvent.VK_SPACE)){
 		        		Location attackLoc = new Location(person1.getLocation());
-		        		l.addAttack(new Attack(person1.getAttack(),"left",attackLoc));
+		        		l.addAttack(new Attack(person1.getAttack(),"left",attackLoc, 0));
 		        		pressed.remove(KeyEvent.VK_SPACE);
 		        		
 		        	}
@@ -116,7 +117,7 @@ public class MazeBoard extends JPanel{
 				if (pressed.size() > 1) {
 		        	if(pressed.contains(KeyEvent.VK_SPACE)){
 		        		Location attackLoc = new Location(person1.getLocation());
-		        		l.addAttack(new Attack(person1.getAttack(),"right",attackLoc));
+		        		l.addAttack(new Attack(person1.getAttack(),"right",attackLoc, 0));
 		        		pressed.remove(KeyEvent.VK_SPACE);
 		        		
 		        	}

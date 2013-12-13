@@ -15,7 +15,6 @@ public class Monster extends Person {
 	private Hashtable<Vertex, String> mPath;
 	private Timer t;
 	private Player player;
-	private Vertex vert;
 	private boolean close;
 	
 	protected Monster(Path p, Vertex v, int type, int level, Player p1) {
@@ -58,52 +57,44 @@ public class Monster extends Person {
 		return vert;
 	}
 
-	public boolean withinRange(Player p, int depth,Vertex v){
-		for(Iterator<Vertex> i = v.adjacentVertices(this).iterator();i.hasNext();){
-			Vertex n = i.next();
-			if((p.getVertex().getX() == n.getX())&&(p.getVertex().getY() == n.getY())){
-				close = true;
-				return true;
-			}
-			if(depth < 6){
-				return withinRange(p,depth+1,n);
-			}
+	public boolean withinRange(Player p, int depth){
+		if(p.getLocation().dist(loc)<depth) {
+			return true;
 		}
-		close = false;
-		return false;
-		
+		else {
+			return false;
+		}
 	}
 	
-	public Vertex next(Player p, Vertex v){ //monsters essentially go through map switching locations but attack player if close
-		mPath.put(v, "discovered");
-		for(int i = 0; i<v.connections.size(); i++){
-			
-			Vertex check = v.connections.get(i);
-			
-			if(check.getX() == p.getX() & check.getY() == p.getY()){
-				System.out.println("near player");
-				mPath.clear();
-				return check;
-			}
-			else if(mPath.containsKey(check) == false){
-				System.out.println("doesn't contain key");
-				mPath.put(check,"discovered");
-				next(p,check);
-					
-			}
-			
+	public Vertex next(Player p, Vertex v, int depth){ //monsters essentially go through map switching locations but attack player if close
+		v.setInPath();
+		if(v.getX() == p.getX() & v.getY() == p.getY()){
+			path.resetMarkers();
+			return v;
 		}
-		
-		mPath.put(v, "explored");
+		else {
+			for(int i = 0; i<v.connections.size(); i++){
+				if(!v.connections.get(i).inPath()){
+					Vertex temp = next(p,v.connections.get(i), depth +1);
+					if(temp != null){
+						return v.connections.get(i);
+					}
+				}
+			
+			}
+		}
 		return null;
 		
 	}
 	ActionListener monsterRefresh = new ActionListener() { //movement sucks as of now
 		  public void actionPerformed(ActionEvent evt) {
-			    Vertex x = next(player,vert);
-				int  newX = x.getX() - (int)vert.getX();
-				int  newY = x.getY() - (int)vert.getY();
-				move(newX,newY);
+			  	path.resetMarkers();
+			    Vertex x = next(player,vert,0);
+			    if(x!= null){
+					int  newX = (x.getX() - (int)vert.getX())/2;
+					int  newY = (x.getY() - (int)vert.getY())/2;
+					move(newX,newY);
+			    }
 				
 			  }
 		};

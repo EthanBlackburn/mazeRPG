@@ -13,7 +13,7 @@ public abstract class Person{
 	//a person will always have a location
 	protected Location loc;
 	protected Vertex vert;
-	private Path path;
+	protected Path path;
 	protected int maxHealth;
 	private int health;
 	private boolean isAlive;
@@ -138,7 +138,22 @@ public abstract class Person{
 		double tempy = loc.getY();
 		for(int i = 0; i<vert.connections.size(); i++){
 			if(vert.connections.get(i).getX() == tempx & vert.connections.get(i).getY() == tempy) {
+				int deltax = vert.getX() - vert.connections.get(i).getX();
+				int deltay = vert.getX() - vert.connections.get(i).getX();
+				if(deltax == 1){
+					Direction = "right";
+				}
+				else if(deltax == -1){
+					Direction = "left";
+				}
+				else if(deltay == 1){
+					Direction = "down";
+				}
+				else if(deltax == -1){
+					Direction = "up";
+				}
 				vert = vert.connections.get(i);
+				
 				return;
 			}
 		}

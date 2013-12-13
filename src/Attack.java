@@ -12,10 +12,13 @@ public class Attack{
 	private Location loc;
 	private Timer t;
 	private Vertex vert;
-	public Attack(int s,String d, Location l){
+	private int Type;
+	
+	public Attack(int s,String d, Location l, int type){
 		direction = d;
 		strength = s;
 		loc = l;
+		Type = type;
 		vert = new Vertex(loc);
 		t = new Timer(500,attackListener);
 		t.start();
@@ -41,6 +44,10 @@ public class Attack{
 	
 	public String getDirection(){
 		return direction;
+	}
+	
+	public int getType(){
+		return Type;
 	}
 
 	ActionListener attackListener = new ActionListener(){
