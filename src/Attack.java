@@ -21,8 +21,11 @@ public class Attack{
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		Type = type;
 =======
+=======
+>>>>>>> df073f836643c24963154643eeaf4db6492c972a
 =======
 >>>>>>> df073f836643c24963154643eeaf4db6492c972a
 =======
@@ -45,6 +48,9 @@ public class Attack{
 		loc.setLocation(tempx, tempy);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> df073f836643c24963154643eeaf4db6492c972a
+=======
 >>>>>>> df073f836643c24963154643eeaf4db6492c972a
 =======
 >>>>>>> df073f836643c24963154643eeaf4db6492c972a

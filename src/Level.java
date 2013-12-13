@@ -84,12 +84,16 @@ public class Level extends JPanel{
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				System.out.println(attacks.get(i).getLocation().getX());
 				System.out.println(attacks.get(i).getLocation().getY());
 				if(grid.getVertex2(attacks.get(i).getVertex().getX()/2, attacks.get(i).getVertex().getY()/2) != null ){
 				if(grid.getVertex2(attacks.get(i).getVertex().getX(), attacks.get(i).getVertex().getY()) != null ){
 					System.out.println(attacks.get(i).getLocation().getX());
 					System.out.println(attacks.get(i).getLocation().getY());
+=======
+				if(grid.getVertex2(attacks.get(i).getVertex().getX(), attacks.get(i).getVertex().getY()) != null ){//isnt detecting walls
+>>>>>>> df073f836643c24963154643eeaf4db6492c972a
 =======
 				if(grid.getVertex2(attacks.get(i).getVertex().getX(), attacks.get(i).getVertex().getY()) != null ){//isnt detecting walls
 >>>>>>> df073f836643c24963154643eeaf4db6492c972a
@@ -133,6 +137,7 @@ public class Level extends JPanel{
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	ActionListener listener = new ActionListener(){
 		public void actionPerformed(ActionEvent evt){
 			if(GI == null) {
@@ -149,6 +154,9 @@ public class Level extends JPanel{
 			repaint();
 		}
 	};
+=======
+	
+>>>>>>> df073f836643c24963154643eeaf4db6492c972a
 =======
 	
 >>>>>>> df073f836643c24963154643eeaf4db6492c972a
