@@ -13,7 +13,7 @@ public abstract class Person{
 	//a person will always have a location
 	protected Location loc;
 	protected Vertex vert;
-	private Path path;
+	protected Path path;
 	protected int maxHealth;
 	private int health;
 	protected int attack;

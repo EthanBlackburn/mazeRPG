@@ -35,4 +35,6 @@ public class Player extends Person{
 	public int getY() {
 		return super.getY();
 	}
+	
+	
 }

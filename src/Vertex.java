@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Vertex {
 	
 	//vertex location
-	public Location loc;
+	protected Location loc;
 	protected ArrayList<Vertex> connections;
 	
 	//isInPath marks a vertex if it is part of the path of the maze

@@ -13,6 +13,7 @@ import javax.swing.Icon;
 public class MonsterIcon implements Icon{
 
 	private BufferedImage monster;
+	private Image monstimage;
 	private Monster monst;
 	
 	
@@ -68,6 +69,7 @@ public class MonsterIcon implements Icon{
 	    } catch (IOException ex) {
 	           System.out.println("couldnt load monster image");
 	    }
+		monstimage = monster.getScaledInstance(50,50,monster.SCALE_DEFAULT);
 	}
 	@Override
 	public int getIconHeight() {
@@ -86,8 +88,8 @@ public class MonsterIcon implements Icon{
 	@Override
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		Graphics2D g2 = (Graphics2D)g;
-		Image temp = monster.getScaledInstance(50,50,monster.SCALE_DEFAULT);
-		g2.drawImage(temp, x, y, null);
+		//Image temp = monster.getScaledInstance(50,50,monst.SCALE_DEFAULT);
+		g2.drawImage(monstimage, x, y, null);
 		
 	}
 
