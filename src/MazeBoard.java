@@ -1,9 +1,13 @@
 import java.awt.FlowLayout;
 import java.util.HashSet;
+<<<<<<< HEAD
+import java.util.Set;
+=======
 import java.util.Set;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+>>>>>>> b5044d3741109dfcb2560613112d068f4385a1d7
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -23,11 +27,23 @@ public class MazeBoard extends JPanel{
 	private int width;
 	private int height;
 	private Display disp;
+<<<<<<< HEAD
 	private JButton help;
 	private int delay[];
 	private Timer t;
 	private Timer s;
 	private final Set<Integer> pressed; //set of pressed keys
+=======
+<<<<<<< HEAD
+	private Timer t;
+=======
+	private int delay[];
+	private Timer t;
+	private Timer s;
+>>>>>>> b5044d3741109dfcb2560613112d068f4385a1d7
+	private final Set<Integer> pressed;
+	
+>>>>>>> 04deac045c1ad0a6406690a8cea5730459823cd5
 	
 	/*
 	 * class that contains all elements of the game
@@ -58,6 +74,7 @@ public class MazeBoard extends JPanel{
 		add(disp);
 		add(l);
 		l.setFocusable(true);
+<<<<<<< HEAD
 		t = new Timer(100,Alistener); //level is updated ever 100ms
 		s = new Timer(100,Mlistener);
 		t.start();
@@ -78,6 +95,17 @@ public class MazeBoard extends JPanel{
 			}
 		});
 		add(help);
+=======
+<<<<<<< HEAD
+		t = new Timer(200,Alistener);
+		t.start();
+=======
+		t = new Timer(100,Alistener);
+		s = new Timer(100,Mlistener);
+		t.start();
+		s.start();
+>>>>>>> b5044d3741109dfcb2560613112d068f4385a1d7
+>>>>>>> 04deac045c1ad0a6406690a8cea5730459823cd5
 		
 	}
 	
@@ -136,6 +164,24 @@ public class MazeBoard extends JPanel{
 				}
 				repaint();			
 			}
+<<<<<<< HEAD
+			else{
+				pressed.clear();
+			}
+			
+			if((person1.getVertex().getX() == 37) && (person1.getVertex().getY() == 37) & l.getDifficulty() < 4){ //if player is on stairs then go to next level
+				int diff = l.getDifficulty()+1;
+				remove(l);
+				t.stop();
+				disp.setLevel(diff);
+				l = new Level(diff,width,height);
+				person1 = l.getPlayer();
+				add(l);
+				revalidate();
+				l.setFocusable(true);
+				repaint();
+				t.restart();
+=======
 			else if(temp == KeyEvent.VK_SPACE){
 				pressed.add(temp);
 			}
@@ -182,6 +228,11 @@ public class MazeBoard extends JPanel{
 				s.restart();
 				}
 				
+<<<<<<< HEAD
+=======
+>>>>>>> b5044d3741109dfcb2560613112d068f4385a1d7
+			}
+>>>>>>> 04deac045c1ad0a6406690a8cea5730459823cd5
 		}
 
 		@Override
@@ -192,6 +243,27 @@ public class MazeBoard extends JPanel{
 		
 	}
 	
+<<<<<<< HEAD
+	ActionListener Alistener = new ActionListener(){
+		public void actionPerformed(ActionEvent evt){
+			l.DetectCollision(l.getGI().getAttacks());
+			for(int i = 0; i < l.monsters.size();i++){
+				if(l.monsters.get(i).isClose()){
+					String dir;
+					if(person1.getVertex().getY() == l.monsters.get(i).getY() & person1.getVertex().getX() >= l.monsters.get(i).getX()){
+						dir = "right";
+					}
+					else if(person1.getVertex().getY() == l.monsters.get(i).getY() & person1.getVertex().getX() < l.monsters.get(i).getX()){
+						dir = "left";
+					}
+					else if(person1.getVertex().getX() == l.monsters.get(i).getX() & person1.getVertex().getY() >= l.monsters.get(i).getY()){
+						dir = "down";
+					}
+					else {
+						dir = "up";
+					}
+					l.addAttack(new Attack(l.monsters.get(i).getAttack(),dir,new Location(l.monsters.get(i).getLocation())));
+=======
 	ActionListener Mlistener = new ActionListener(){
 		public void actionPerformed(ActionEvent evt){
 			for(int i = 0; i<3; i++){
@@ -228,12 +300,16 @@ public class MazeBoard extends JPanel{
 					}
 					l.addAttack(new Attack(l.monsters.get(i).getAttack(),dir, new Location( l.monsters.get(i).getLocation() ),1 ) );
 					delay[i] = 0;
+>>>>>>> b5044d3741109dfcb2560613112d068f4385a1d7
 				}
 			}
 			disp.setHealth(person1.getHealth());
 			if(person1.getHealth() <= 0){ //player is dead
 				t.stop();
+<<<<<<< HEAD
+=======
 				s.stop();
+>>>>>>> b5044d3741109dfcb2560613112d068f4385a1d7
 				int n = JOptionPane.showConfirmDialog(null,"You lost! Play again?", "Game Over!",JOptionPane.YES_NO_OPTION);
 				if(n==0){
 					remove(l);
@@ -244,7 +320,10 @@ public class MazeBoard extends JPanel{
 					revalidate();
 					l.setFocusable(true);
 					t.restart();
+<<<<<<< HEAD
+=======
 					s.restart();
+>>>>>>> b5044d3741109dfcb2560613112d068f4385a1d7
 				}
 				else{
 					System.exit(ABORT);
@@ -252,7 +331,10 @@ public class MazeBoard extends JPanel{
 			}
 			else if(l.getDifficulty() == 4 & l.monsters.size() == 0){ //player beats final boss
 				t.stop();
+<<<<<<< HEAD
+=======
 				s.stop();
+>>>>>>> b5044d3741109dfcb2560613112d068f4385a1d7
 				int n = JOptionPane.showConfirmDialog(null,"You won! Play again?", "Game Over!",JOptionPane.YES_NO_OPTION);
 				if(n==0){
 					remove(l);
@@ -263,7 +345,10 @@ public class MazeBoard extends JPanel{
 					revalidate();
 					l.setFocusable(true);
 					t.restart();
+<<<<<<< HEAD
+=======
 					s.restart();
+>>>>>>> b5044d3741109dfcb2560613112d068f4385a1d7
 				}
 				else{
 					System.exit(ABORT);

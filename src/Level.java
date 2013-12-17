@@ -10,6 +10,7 @@ import javax.swing.Timer;
 
 
 public class Level extends JPanel{
+<<<<<<< HEAD
 
 	
 		/*
@@ -17,6 +18,9 @@ public class Level extends JPanel{
 		 * this includes: player object, each monster object,
 		 * attacks, walls, path and all images.
 		 */
+=======
+	
+>>>>>>> 04deac045c1ad0a6406690a8cea5730459823cd5
         private Player person1;
         
         private Grid grid;
@@ -149,3 +153,4 @@ public class Level extends JPanel{
         }
         
 }
+>>>>>>> b5044d3741109dfcb2560613112d068f4385a1d7
