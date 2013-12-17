@@ -12,7 +12,7 @@
 /Location.class
 /MazeBoard$1.class
 /MazeBoard$2.class
-<<<<<<< HEAD
+/MazeBoard$3.class
 /MazeBoard$MyKeyListener.class
 /MazeBoard.class
 /MazeDemo.class
@@ -27,15 +27,3 @@
 /Vertex.class
 /Wall.class
 /resources
-/MazeBoard$3.class
-=======
-/resources
-/BackgroundIcon.class
-/Graph.class
-/GraphIcon.class
-/Grid.class
-/MazeDemo.class
-/Path.class
-/Player.class
-/PlayerIcon.class
->>>>>>> 04deac045c1ad0a6406690a8cea5730459823cd5
