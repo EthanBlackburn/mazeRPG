@@ -4,7 +4,7 @@ mazeRPG is a simple maze game with randomly generated mazes and levels.
 
 Levels:
 -------
-  Each level contains a maze with an objective (i.e. end location) and enemies with simple AI.
+  Each level contains a maze with an objective (i.e. end location) and enemies with simple AI. Monsters move from one start location to another until they are in close range with the player. Once they are in range, they begin to follow and attack you. The monsters difficulty increases as the player reaches higher levels.
 
 Maze:
 -----

@@ -6,7 +6,6 @@ public class Grid {
 	//grid will have walls and a path
 	protected Wall walls;
 	protected Path path;
-	protected ArrayList<Vertex> longestPath;
 	
 	//width and height will measure the number of cell rows and columns
 	private int width;
@@ -22,7 +21,7 @@ public class Grid {
 		//create the wall and connect all the neighboring vertices.
 		walls = new Wall(w,h);
 		path = new Path(w,h);
-		longestPath = new ArrayList();
+		
 		makeMaze(1,1);
 		
 		//reset all of the markers of path
@@ -157,75 +156,6 @@ public class Grid {
 		}
 	}
 	
-	//find the furthest leaf
-	int farthestDist = 0;
-	Vertex farthestVert;
-	public void findFurthestVertex(Vertex vert, int dist) {
-		vert.setInPath();
-		boolean isLeaf = true;
-		for(int i = 0; i< vert.connections.size(); i++){
-			if(!vert.connections.get(i).inPath()){
-				isLeaf = false;
-			}
-		}
-		if(isLeaf){
-			if(dist > farthestDist){
-				farthestVert = vert;
-				farthestDist = dist;
-			}
-			return;
-		}
-		else {
-			for(int i = 0; i < vert.connections.size(); i++) {
-				if(!vert.connections.get(i).inPath()){
-					findFurthestVertex(vert.connections.get(i), dist + 1);
-				}
-			}
-		}
-	}
-	
-	//make the farthest Path
-	public boolean makeLongestPath(Vertex start, Vertex current, Vertex end){
-		//System.out.println(current.getX() + " "  + current.getY());
-		//System.out.println(end.getX() + " " + end.getY());
-		current.setInPath();
-
-		//System.out.println(longestPath.size());
-		boolean isLeaf = true;
-		for(int i = 0; i< current.connections.size(); i++) {
-			if(!current.connections.get(i).inPath())
-				isLeaf = false;
-		}
-		if(current.getX() == end.getX() & current.getY() == end.getY()){
-			System.out.println("alpha");
-			longestPath.add(new Vertex(current.getX(),current.getY()));
-			System.out.println(longestPath.size());
-			return true;
-		}
-		else if(isLeaf) {
-			return false;
-		}
-		else {
-			//System.out.println("a");
-			for(int i = 0; i< current.connections.size(); i++) {
-				//System.out.println("b");
-				current.setInPath();
-				if(!current.getConnection(i).inPath()){
-					//System.out.println("c");
-
-					if(makeLongestPath(start, current.getConnection(i), end)){
-						//System.out.println(" t");
-						longestPath.add(new Vertex(current.getX(), current.getY()));
-						return true;
-					}
-					
-						//longestPath.get(longestPath.size()-1).addConnection(longestPath.get(longestPath.size()-2));
-				}
-			}
-			return false;
-		}
-	}
-	
 	//return width
 	public int getWidth() {
 		return width;
@@ -245,7 +175,4 @@ public class Grid {
 		}
 	}
 	
-	public Vertex getLPVertex(int i) {
-		return longestPath.get(i);
-	}
 }

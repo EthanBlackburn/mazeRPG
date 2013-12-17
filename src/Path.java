@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.math.*;
 
 public class Path extends Graph{
+	/*path is the places on the graph where the player, monsters and attacks are allowed to
+	 * be. The path is created by removing walls in-between vertices
+	 */
 	
 	public Path(int w, int h) {
 		super(w,h);

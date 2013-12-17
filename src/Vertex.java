@@ -27,6 +27,7 @@ public class Vertex {
 		isInPath = false;
 	}
 	
+	//create Vertex from an existing vertex
 	public Vertex(Vertex vert) {
 		loc = new Location(vert.loc);
 		connections = vert.connections;
@@ -48,9 +49,9 @@ public class Vertex {
 		return (int)loc.getY();
 	}
 	
-	public int getMidX(Vertex v){
-		return (v.getX() + getX())/2;
-	}
+	//public int getMidX(Vertex v){
+		//return (v.getX() + getX())/2;
+	//}
 	
 	public int getMidY(Vertex v){
 		return (v.getY() + getY())/2;

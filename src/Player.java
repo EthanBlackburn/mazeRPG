@@ -5,6 +5,10 @@ import javax.imageio.ImageIO;
 
 
 public class Player extends Person{
+	/*
+	 * player class represents the user
+	 * 
+	 */
 	//Player has a location
 	private int level;
 	private BufferedImage player;
@@ -24,15 +28,15 @@ public class Player extends Person{
 	    }
 		setImage(player);
 	}
-	public BufferedImage getImage(){
+	public BufferedImage getImage(){ //return the image representing this player object
 		return super.getImage();
 	}
 	
-	public int getX() {
+	public int getX() { //return x coordinate
 		return super.getX();
 	}
 	
-	public int getY() {
+	public int getY() { //return y coordinate
 		return super.getY();
 	}
 	
