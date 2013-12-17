@@ -15,7 +15,7 @@ public class BackgroundIcon implements Icon{
 	private BufferedImage image;
 	private int scaleFactor;
 	
-	public BackgroundIcon(Graph g) {
+	public BackgroundIcon(Graph g) { //this class loads the background tiles. This loads the sand colored tiles NOT the trees.
 		graph = g;
 	}
 	
@@ -42,8 +42,8 @@ public class BackgroundIcon implements Icon{
 	           System.out.println("couldnt load ground image");
 	    }
 		
-		Image temp= image.getScaledInstance(scaleFactor,scaleFactor,Image.SCALE_DEFAULT);
-		for(int i = 0; i< getIconWidth(); i++){
+		Image temp= image.getScaledInstance(scaleFactor,scaleFactor,Image.SCALE_DEFAULT); //loads background image on the path vertices only. This produced a large increase in speed
+		for(int i = 0; i< getIconWidth(); i++){                                           //because we first had it drawing them everywhere, then drawing the walls over, which was slow.
 			for(int j = 0; j< getIconHeight(); j++){
 				g2.drawImage(temp,graph.getVertex(i,j).getX()*scaleFactor,graph.getVertex(i,j).getY()*scaleFactor,null);
 				for(int k = 0; k< graph.getVertex(i, j).connections.size(); k++) {

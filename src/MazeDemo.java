@@ -8,6 +8,11 @@ import javax.swing.JLabel;
 public class MazeDemo {
 
 	public static void main(String[] args) {
+		/*
+		 * Main JFrame that contains everything.
+		 * It initialized the mazeboard JPanel. Everything
+		 * else is simply contained by mazeboard
+		 */
 		
 		final JFrame frame = new JFrame();
 	      

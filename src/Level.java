@@ -11,6 +11,12 @@ import javax.swing.Timer;
 
 public class Level extends JPanel{
 
+	
+		/*
+		 * Level class holds the data for each level
+		 * this includes: player object, each monster object,
+		 * attacks, walls, path and all images.
+		 */
         private Player person1;
         
         private Grid grid;
@@ -48,50 +54,50 @@ public class Level extends JPanel{
                 add(walls);
         }
         
-        public void removePlayer(){
+        public void removePlayer(){ //if player is dead, remove him and end the game
                 remove(player);
         }
         
-        public void addPlayer(){
+        public void addPlayer(){ //add player to level
                 add(player);
         }
         
-        public GameIcon getGI(){
+        public GameIcon getGI(){ //get the object that holds the walls, mosters, players and attacks
                 return GI;
         }
         
-        public void addAttack(Attack a){
+        public void addAttack(Attack a){ //someone has attacked, add it to the objects
                 GI.addAttack(a);
         }
         
-        public void addAttacks(ArrayList<Attack> a){
+        public void addAttacks(ArrayList<Attack> a){ //add multiple attacks
                 GI.addAttacks(a);
         }
         
-        public int getDifficulty(){
+        public int getDifficulty(){ //return the level difficulty
                 return difficulty;
         }
         
-        public Grid getGrid(){
+        public Grid getGrid(){ //return the grid
                 return grid;
         }
         
-        public Player getPlayer(){
+        public Player getPlayer(){ //return the player
                 return person1;
         }
  
-        public ArrayList<Attack> DetectCollision(ArrayList<Attack> attacks){
-                ArrayList<Attack> collisions = new ArrayList<Attack>();
-                
+        public ArrayList<Attack> DetectCollision(ArrayList<Attack> attacks){//this method detects collisions. players and monster
+                ArrayList<Attack> collisions = new ArrayList<Attack>();    //are able to walk over each other. Attacks, are deleted
+                															//when they hit walls, the player or a monster.
                 LOOP:for(int i = 0; i < attacks.size(); i++){
                 	System.out.print("attack loc");
                 	attacks.get(i).getLocation().printLocation();
                 		if(monsters.size() == 0) {
-                			if(grid.getVertex2(attacks.get(i).getVertex().getX()/2, attacks.get(i).getVertex().getY()/2) != null ){//isnt detecting walls
+                			if(grid.getVertex2(attacks.get(i).getVertex().getX()/2, attacks.get(i).getVertex().getY()/2) != null ){
                                 collisions.add(attacks.get(i));
                             }
                 		}
-                        for(int k = 0; k < monsters.size();k++){
+                        for(int k = 0; k < monsters.size();k++){ //get location of each monster and player
                         	System.out.print("monster loc = ");
                         	monsters.get(k).getLocation().printLocation();
                         	double monsterX = monsters.get(k).getLocation().getX();

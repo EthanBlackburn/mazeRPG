@@ -10,7 +10,10 @@ import javax.swing.Icon;
 
 
 public class StairsIcon implements Icon{
-
+/*
+ * this class holds and paints the picture for the stairs.
+ * levels 1-3 have stairs to proceed to next level
+ */
 	private BufferedImage image;
 	@Override
 	public int getIconHeight() {

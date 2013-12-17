@@ -8,6 +8,14 @@ import javax.swing.Timer;
 
 
 public class Monster extends Person {
+	/*
+	 * this class represents a monster
+	 * each level contains three monsters
+	 * The monsters settings are adjusted
+	 * according to what the current level is
+	 * So, monsters increase in movement speed,
+	 * health and attack power as the levels get higher
+	 */
 
         private int Type;
         private int Level;
@@ -27,11 +35,11 @@ public class Monster extends Person {
                 close =  false;
                 vert = v;
                 startVert = v;
-                locations = new ArrayList<Vertex>();
-                locations.add(new Vertex(37,1));
-                locations.add(new Vertex(37,37));
-                locations.add(new Vertex(1,37));
-                if(level != 4){
+                locations = new ArrayList<Vertex>(); //monsters move from the start locations of each monster
+                locations.add(new Vertex(37,1));   //and rotate spots ie monster 1 moves to the spawn point of monster 2,
+                locations.add(new Vertex(37,37));  //monster 2 moves spawn point of monster 3, monster 3 moves to spawn
+                locations.add(new Vertex(1,37)); //point of monster 1. They keep rotating until the are near a player
+                if(level != 4){                  //once that happens, they follow the player and try to attack him
                 		endVert = nextVert();
                 }
                 else {
@@ -59,11 +67,11 @@ public class Monster extends Person {
                 
         }
         
-        public int getLevel() {
+        public int getLevel() { //return the current difficulty of the monster
                 return Level;
         }
 
-        public int getType() {
+        public int getType() { //return the type of the monster
                 return Type;
         }
         
@@ -72,7 +80,7 @@ public class Monster extends Person {
         }
         
         @Override
-        public boolean isValidMove(double dx, double dy){
+        public boolean isValidMove(double dx, double dy){ //check is a move is a valid move for this monster
         	if(super.isValidMove(dx,dy)) {
         		if(!(getX() + dx == player.getX() & getY() + dy == player.getY())){
         			return true;

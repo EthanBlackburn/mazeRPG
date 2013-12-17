@@ -11,6 +11,13 @@ import javax.swing.Icon;
 
 
 public class MonsterIcon implements Icon{
+	/*
+	 * this class holds the image for the monster
+	 * level one contains the first evolution,
+	 * level two contains the second evolution
+	 * level three contains the third evolution
+	 * level four contains one monster which is the final boss.
+	 */
 
 	private BufferedImage monster;
 	private Image monstimage;

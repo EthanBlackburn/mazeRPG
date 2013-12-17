@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 public class Display extends JPanel {
 
 	/**
-	 * 
+	 * this class is the information bar for the game. It includes player health and level number
 	 */
 	private static final long serialVersionUID = 4347982897832715628L;
 	private int level;
@@ -25,12 +25,12 @@ public class Display extends JPanel {
 		add(levelLabel);
 	}
 	
-	public void setHealth(int h){
+	public void setHealth(int h){ //health setter. Sets health to JLabel
 		health =h;
 		healthLabel.setText("Health: " + health);
 	}
 	
-	public void setLevel(int l){
+	public void setLevel(int l){ //level setter. Sets level to JLabel
 		level = l;
 		levelLabel.setText("Level: " + level);
 	}

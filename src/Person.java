@@ -10,6 +10,11 @@ import javax.swing.JComponent;
 
 public abstract class Person{
 	
+	/*
+	 * person class is the parent class for player and monster
+	 * this class contains the methods for movement, basic settings for a person
+	 * and the images 
+	 */
 	//a person will always have a location
 	protected Location loc;
 	protected Vertex vert;
@@ -103,7 +108,7 @@ public abstract class Person{
 	
 	
 	//move the person
-	public void move(double dx, double dy) {
+	public void move(double dx, double dy) { //methods keeps track of direction of movement for attacks and image loading
 		if(!isValidMove(dx,dy)){
 			return;
 		}

@@ -14,8 +14,8 @@ public class AttackIcon implements Icon{
 	private BufferedImage image;
 	private Attack atk;
 	
-	public AttackIcon(Attack A){
-		direction = A.getDirection();
+	public AttackIcon(Attack A){ //image to load for an attack
+		direction = A.getDirection(); //get direction of attack
 		atk = A;
 	}
 	
@@ -24,7 +24,7 @@ public class AttackIcon implements Icon{
 		Graphics2D g2 = (Graphics2D)g;
 		java.net.URL url;
 		if(direction == "up"){
-			url = getClass().getResource("/resources/attacks/blast_up.png");
+			url = getClass().getResource("/resources/attacks/blast_up.png"); //load the correct blast image based on attack direction
 			
 			
 		}
@@ -46,13 +46,13 @@ public class AttackIcon implements Icon{
 	           System.out.println("couldnt load blast image");
 	    }
 		
-		Image temp= image.getScaledInstance(17,17,Image.SCALE_DEFAULT);
+		Image temp= image.getScaledInstance(17,17,Image.SCALE_DEFAULT); //scale the image to the size of each square on the board
 		g2.drawImage(temp, 17*(atk.getLocation().getX()), 17*(atk.getLocation().getY()), null);
 		
 	}
 
 	@Override
-	public int getIconHeight() {
+	public int getIconHeight() { 
 		// TODO Auto-generated method stub
 		return 0;
 	}

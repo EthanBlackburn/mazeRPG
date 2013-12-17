@@ -14,12 +14,12 @@ public class Attack{
         private Timer t;
         private Vertex vert;
         public Attack(int s,String d, Location l, int type){
-                direction = d;
-                strength = s;
+                direction = d; //attacks have directions. This is for the purpose of movement and loading the proper image
+                strength = s; 
                 loc = l;
                 Type = type;
-                int tempy = loc.getY();
-                int tempx = loc.getX();
+                int tempy = loc.getY(); //we have to initialize the attack one square ahead of the player, else the game will detect a collision
+                int tempx = loc.getX();//this will result in the player injuring himself and the attack being destroyed
                 if(direction == "up"){
                         tempy+=-1.0;
                 }
@@ -40,37 +40,37 @@ public class Attack{
                 
         }
         
-        public int getStrength(){
+        public int getStrength(){ //returns the strength of the attack
                 return strength;
         }
         
-        public void setLocation(Location l){
+        public void setLocation(Location l){ //method is called when attack is initialized and moves
                 loc = l;
                 
         }
         
-        public Location getLocation(){
+        public Location getLocation(){ //getter for location
                 return loc;
         }
         
-        public int getType(){
+        public int getType(){ //getter for type
         	return Type;
         }
         
-        public Vertex getVertex(){
+        public Vertex getVertex(){ //vertex of attack
                 return vert;
         }
         
-        public String getDirection(){
+        public String getDirection(){//getter method for direction
                 return direction;
         }
 
-        ActionListener attackListener = new ActionListener(){
-                public void actionPerformed(ActionEvent evt){
+        ActionListener attackListener = new ActionListener(){//listener that updates attacks location. According to the current settings
+                public void actionPerformed(ActionEvent evt){//of mazeboard, this is called every 100ms. Attacks move quickly
                         int x = loc.getX();
                         int y = loc.getY();
-                        if(direction == "up"){
-                                y+=-1.0;
+                        if(direction == "up"){ 
+                                y+=-1.0;//Note: Y-axis was flipped upside down. 
                         }
                         if(direction == "down"){
                                 y+=1.0;

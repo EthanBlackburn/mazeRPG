@@ -7,6 +7,10 @@ import javax.swing.Icon;
 
 public class GameIcon implements Icon{
 
+	/*
+	**this class draws is responsible for most of the game elements.
+	*it draws the monsters, walls, player and attacks.
+	*/
 	private Grid grid;
 	private int height;
 	private int width;
@@ -83,7 +87,7 @@ public class GameIcon implements Icon{
 		GraphIcon w = new GraphIcon(grid.walls);
 		w.paintIcon(arg0, g2, dx, dy);	
 		
-	
+		//draw walls. Each wall is a pokemon-themed tree
 		BackgroundIcon background = new BackgroundIcon(grid.path);
 		background.paintIcon(arg0, g2, 0, 0);
 		GraphIcon wall = new GraphIcon(grid.walls);
@@ -96,7 +100,7 @@ public class GameIcon implements Icon{
 			monster.paintIcon(arg0, g2, 17*(int)((monsters.get(i)).getX()-1), 17*(int)((monsters.get(i)).getY()-1));
 		}
 		if(difficulty<4){
-			StairsIcon stairs = new StairsIcon();
+			StairsIcon stairs = new StairsIcon(); //fourth level does not have stairs because it is the last level
 			stairs.paintIcon(arg0, g2, 0, 0);
 		}
 		
